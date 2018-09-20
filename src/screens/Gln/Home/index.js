@@ -184,7 +184,7 @@ class Home extends Component {
 							alignItems: 'center',
 							justifyContent: 'center',
 							padding: 8}}   size="large"
-							color="#aa00aa"/>
+							color="#000"/>
 					</View>
 				</View>
 			);
@@ -203,7 +203,7 @@ class Home extends Component {
 				    <View style={{
 						width: Dimensions.get("window").width * 9 / 10,
 						height: 350,}}>
-						<Header transparent={true} style={{ backgroundColor:"#001f4d"}}>
+						<Header style={{ backgroundColor:"#000"}}>
 							<Left>
 								<Button transparent onPress={() => this.setState({boolDetail:!this.state.boolDetail})}>
 									<Icon active name="arrow-back" />
@@ -216,7 +216,7 @@ class Home extends Component {
 							</Right>
 						</Header>
 						<ScrollView style={styles.container}>
-			        		<List style={{ backgroundColor:"#002966"}}>
+			        		<List style={{ backgroundColor:"#fff"}}>
 								<ListItem>
 									<Row>
 										<Col style={{width: Dimensions.get("window").width / 5}}>
@@ -285,7 +285,7 @@ class Home extends Component {
 							<Right>
 							</Right>
 						</Header>
-						<ScrollView style={{backgroundColor:"#002966"}}>
+						<ScrollView style={{backgroundColor:"#fff"}}>
 							<View style={{margin: 15}}>
 							<View style={styles.form}>
 								<Item rounded style={styles.inputGrp}>
@@ -351,50 +351,48 @@ class Home extends Component {
 			<Content>
 				<View>
 			    <ScrollView horizontal={false}>
-				<Button small info block rounded style={{marginBottom: 10, margin:5}} onPress={() => navigation.navigate("Create")}>
+				<Button small info block rounded style={{marginBottom: 10, margin:5, backgroundColor: "#2E8B57"}} onPress={() => navigation.navigate("Create")}>
 					<Text style={{fontSize:11}}>
 						+ Create Wallet
 					</Text>
 				</Button>
-        		<Grid style={{ backgroundColor:"#000022", margin:5}}> 
-					<Row style={{margin:5, paddingBottom:5, borderBottomColor:"#ffffff", borderBottomWidth:1}}>
+        		<Grid style={{ backgroundColor:"#fff", margin:5}}> 
+					<Row style={{margin:5, paddingBottom:5, borderBottomColor:"#000", borderBottomWidth:1}}>
 						<Col style={{width: Dimensions.get("window").width / 6}}>
-							<Text style={{fontSize:11, marginLeft:10}} >Label</Text>
+							<Text style={{fontSize:11, marginLeft:10, color: "#000"}} >Label</Text>
 						</Col>
 						<Col style={{width: Dimensions.get("window").width * 3.3 / 10}}>
-							<Text style={{fontSize:11, marginLeft:10}} >Address</Text>
+							<Text style={{fontSize:11, marginLeft:10, color: "#000"}} >Address</Text>
 						</Col>
 						<Col>
-							<Text style={{fontSize:11, marginLeft:10}} >Ballance</Text>
+							<Text style={{fontSize:11, marginLeft:10, color: "#000"}} >Ballance</Text>
 						</Col>
 						<Col>
-							<Text style={{fontSize:11, marginLeft:10}} >Action</Text>
+							<Text style={{fontSize:11, marginLeft:10, color: "#000"}} >Action</Text>
 						</Col>
 					</Row>
 					{this.state.listWallet.map((item, index) => {
 						return (
 							<Row style={{margin:10}}>
 								<Col style={{width: Dimensions.get("window").width / 6}}>
-									<Text style={{fontSize:11, marginLeft:10}} >{item.label}</Text>
+									<Text style={{fontSize:11, marginLeft:10, color: "#000"}} >{item.label}</Text>
 								</Col>
 								<Col style={{width: Dimensions.get("window").width * 3.3 / 10}}>
-									<Text style={{fontSize:11, marginLeft:10}} >{item.address}</Text>
+									<Text style={{fontSize:11, marginLeft:10, color: "#000"}} >{item.address}</Text>
 								</Col>
 								<Col>
-									<Text style={{fontSize:11, marginLeft:10}} >Gln: 100000</Text>
+									<Text style={{fontSize:11, marginLeft:10, color: "#000"}} >Gln: 100000</Text>
 								</Col>
 								<Col>
-									<Button small success style={{marginBottom:5}}
+									<Button rounded style={{marginBottom:3, backgroundColor: "#2E8B57"}}
 										onPress={() => {this.openDetail(item);}}>
 										<Text style={{fontSize:11}}>
-											<Icons name="eye" size={11} />
 											{" "}Detail
 										</Text>
 									</Button>
-									<Button small success 
+									<Button rounded style={{backgroundColor: "#2E8B57"}}
 										onPress={() => this.openSend(item)}>
 										<Text style={{fontSize:11}}>
-											<Icon style={{fontSize:11}} type="FontAwesome" name="swap" />
 											{" "}Send
 										</Text>
 									</Button>

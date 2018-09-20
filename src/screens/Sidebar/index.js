@@ -14,7 +14,7 @@ import {
   View
 } from "native-base";
 import { Grid, Col } from "react-native-easy-grid";
-const headerLogo = require("../../../assets/cava.png");
+const headerLogo = require("../../../assets/gnc-2.png");
 import styles from "./style";
 const resetAction = NavigationActions.reset({
   index: 0,
@@ -31,22 +31,27 @@ const datas = [
   {
     name: "Create Wallet",
     route: "Create",
-    icon: "plus"
+    icon: "list"
   },
   {
     name: "History",
     route: "History",
-    icon: "list"
+    icon: "bookmarks"
   },
   {
     name: "Transfer",
     route: "Transfer",
-    icon: "plus"
+    icon: "shuffle"
   },
   {
-    name: "Create Wallet",
+    name: "Api Information",
     route: "Create",
-    icon: "plus"
+    icon: "paper"
+  },
+  {
+    name: "Settings",
+    route: "",
+    icon: "settings"
   },
   {
     name: "Logout",

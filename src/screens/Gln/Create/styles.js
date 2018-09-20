@@ -21,16 +21,16 @@ export default {
     flex: 1,
     width: null,
     height: null,
-    backgroundColor: primary
+    backgroundColor: "000"
   },
    background: {
     flex: 1,
     width: null,
     height: deviceHeight,
-    backgroundColor: "#000033"
+    backgroundColor: "#000"
   },
   Content: {
-    backgroundColor: primary
+    backgroundColor: "000"
   },
   profileInfoContainer: {
     backgroundColor: primary,

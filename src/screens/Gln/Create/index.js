@@ -99,7 +99,7 @@ class Create extends Component {
 		}
     	const navigation = this.props.navigation;
         return (
-		<Container>
+		<Container style={{backgroundColor:"#000"}}>
 			<Modal animationType = {"slide"} transparent = {true}
 				visible = {this.state.boolDetail}
 				onRequestClose = {()=> { console.log("Modal has been closed.") }}>
@@ -111,7 +111,7 @@ class Create extends Component {
 				    <View style={{
 						width: Dimensions.get("window").width * 9 / 10,
 						height: 300,}}>
-						<Header transparent={true} style={{ backgroundColor:"#001f4d"}}>
+						<Header transparent={true} style={{ backgroundColor:"#000"}}>
 							<Left>
 								<Button transparent onPress={() => this.setState({boolDetail:!this.state.boolDetail})}>
 									<Icon active name="arrow-back" />
@@ -137,7 +137,7 @@ class Create extends Component {
 				<View style={{marginTop: Dimensions.get("window").height * 0 / 10}}>
 					<View style={{margin: Dimensions.get("window").width * 1 / 10}}>
 					<View style={styles.form}>
-						<Item reguler style={styles.inputGrp}>
+						<Item small info block rounded style={styles.inputGrp}>
 							<Icons name="paperclip" size={20}
 								style={{ color: "#fff", margin:5 }}
 							/>

@@ -94,6 +94,7 @@ class LoginUlangForm extends Component {
         // console.warn(responseJson);
         try{
             var obj = JSON.parse(responseJson);
+
             if(typeof obj != "undefined"){
               if(typeof obj.success != "undefined" && obj.success == false){
                 alert("Invalid Data.");
@@ -106,6 +107,7 @@ class LoginUlangForm extends Component {
                 AsyncStorage.setItem('data_user',responseJson);
                 this.props.navigation.navigate("Main");
                 // this.dataUser(obj.result.token);
+              alert("Success");
               }else{
                 alert("Please generate you api key.");
                 this.setState({isLoading:false});
@@ -116,14 +118,20 @@ class LoginUlangForm extends Component {
           alert("Invalid Data");
           this.props.navigation.goBack();
         }
+
       })
       .catch((error) => {
         alert("Invalid Data Or Check Your Connection.");
         this.setState({isLoading:false});
+      }
       });
+
+       
   }
 
   dataUser(token){
+ 
+ // console.warn(token);
     return fetch('https://www.cavallocoin.co/api/user', {
       method: 'GET',
       headers: { 
@@ -144,22 +152,32 @@ class LoginUlangForm extends Component {
       // this.setState({isLoading:false});
     }
     );
+
+       
   }
 
+ 
+
   render() {
+
+   
   const navigation = this.props.navigation;
+
     if (this.state.isLoading) {
       return (
         <View style={styles.background}>
           <Text style={styles.text_aktif}>Loading....</Text>
+          
           <ActivityIndicator style={{
           alignItems: 'center',
           justifyContent: 'center',
           padding: 8}}   size="large"
           color="#aa00aa"/>
         </View>
+
       );
     }
+
     return (
       <Container style={{backgroundColor:"#000033"}}>
         <Image
@@ -186,6 +204,7 @@ class LoginUlangForm extends Component {
               : { fontSize: 16, fontWeight: "900",
               marginTop:10 }
               } >
+                  >
               INPUT YOUR PASSWORD LOGIN
             </Text>
             <Item rounded style={styles.inputGrp}>
@@ -194,6 +213,7 @@ class LoginUlangForm extends Component {
               name= "unlock" 
               style={{ color: "#fff" }}
               /> 
+         
               <Input
               placeholderTextColor="#FFF"
               style={{ fontSize:14, color:"#FFF"}}
@@ -203,6 +223,8 @@ class LoginUlangForm extends Component {
               value={this.state.pass}
               /> 
             </Item>
+
+
             <Button
               rounded
               primary
@@ -210,18 +232,22 @@ class LoginUlangForm extends Component {
               large
               style={{backgroundColor: "#ffbf00", marginTop:10, marginBottom:10}}
               onPress={() => this.login()}>
+                >
               <Text
                 style={
                 Platform.OS === "android"
                 ? { fontSize: 16, textAlign: "center", top: -5 }
                 : { fontSize: 16, fontWeight: "900" }
                 } >
+                  >
                 LOGIN
               </Text>
             </Button>
+
           </View>
         </Image>
       </Container>
+          
     );
   }
 }

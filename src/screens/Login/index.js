@@ -22,7 +22,7 @@ import styles from "./styles";
 // import commonColor from "../../theme/variables/commonColor";
 
 const bg = require("../../../assets/bg.png");
-const logo = require("../../../assets/cava.png");
+const logo = require("../../../assets/gnc-3fix.png");
 
 const required = value => (value ? undefined : "Required");
 const maxLength = max => value =>
@@ -191,13 +191,13 @@ this.state = {
             alignItems: 'center',
             justifyContent: 'center',
             padding: 8}}   size="large"
-              color="#aa00aa"/>
+              color="#fff"/>
         </View>
        );
     }
     return (
       <Container style={styles.background}>
-        <StatusBar barStyle="light-content" backgroundColor="#000033"  />
+        <StatusBar barStyle="light-content" backgroundColor="#2E8B57"  />
           <Content contentContainerStyle={{ flex: 1 }}>
             <View style={styles.container}>
               <Image source={logo} style={styles.logo} />

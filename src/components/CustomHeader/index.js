@@ -5,7 +5,7 @@ import { Icon, Button, Left, Right, Body, Header } from "native-base";
 
 import styles from "./styles";
 
-const headerLogo = require("../../../assets/cava.png");
+const headerLogo = require("../../../assets/gnc-2.png");
 
 class CustomHeader extends Component {
   render() {
@@ -14,7 +14,7 @@ class CustomHeader extends Component {
       <Header hasTabs={this.props.hasTabs}>
         <Left>
           <Button transparent onPress={() => navigation.navigate("DrawerOpen")}>
-            <Icon active name="menu" style={{ color: "#ffbf00" }}/>
+            <Icon active name="menu" style={{ color: "#fff" }}/>
           </Button>
         </Left>
         <Body>

@@ -10,7 +10,7 @@ export default {
     flex: 1,
     width: null,
     height: deviceHeight,
-    backgroundColor: "#000033"
+    backgroundColor: "#2E8B57"
   },
   container: {
     flex: 1,
@@ -68,7 +68,7 @@ export default {
   loginBtn: {
     marginTop: 7,
     height: 50,
-    backgroundColor: "#ffbf00"
+    backgroundColor: "#000"
   },
   otherLinksContainer: {
     paddingTop: deviceHeight < 600 ? 5 : Platform.OS === "android" ? 10 : 15,

@@ -12,6 +12,12 @@ export default {
     height: null,
     backgroundColor: primary
   },
+  container1: {
+    flex: 1,
+    width: null,
+    height: null,
+    backgroundColor: "#2E8B57"
+  },
    background: {
     flex: 1,
     width: null,
