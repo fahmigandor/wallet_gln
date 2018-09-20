@@ -51,29 +51,21 @@ class LoginUlangForm extends Component {
   ds: Object;
   constructor(props: Props) {
     super(props);
-    this.state = {
-       email:null,
-       pass:null,
-       isLoading:false
+      this.state = {
+      email:null,
+      pass:null,
+      isLoading:false
     };
 
-      AsyncStorage.getItem('data_user', (err, result) => {
-     
-         var obj = JSON.parse(result);
-        this.setState({
-          email:obj.email,
-        });
-
-     //     AsyncStorage.getItem('pass', (err, result) => {
-     // password = result;
-     //  });
-
+    AsyncStorage.getItem('data_user', (err, result) => {
+      var obj = JSON.parse(result);
+      this.setState({
+        email:obj.email,
       });
-
-    
+    });
   }
 
-   login() {
+  login() {
     if (this.state.email != null && this.state.pass != null && this.state.email != "" && this.state.pass != "") {
       this.setState({isLoading:true});
       this.loginValid();
@@ -89,164 +81,147 @@ class LoginUlangForm extends Component {
   }
 
   loginValid(){
-
-  return fetch('https://www.cavallocoin.co/api/auth/login', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-    body:JSON.stringify({
+    return fetch('https://wallet.greenline.ai/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body:JSON.stringify({
         "email" : this.state.email,
         "password" : this.state.pass
-})
-})
+      })
+    })
       .then((response) => response.text())
       .then((responseJson) => {
-       // console.warn(responseJson);
+        // console.warn(responseJson);
         try{
             var obj = JSON.parse(responseJson);
-
-            if(obj.response == "success"){
-              // 
-               AsyncStorage.setItem('token',obj.result.token);
+            if(typeof obj != "undefined"){
+              if(typeof obj.success != "undefined" && obj.success == false){
+                alert("Invalid Data.");
+                this.setState({isLoading:false});
+                return;
+              }
+              if(typeof obj.api_key != "undefined"){
+                AsyncStorage.setItem('token',obj.api_key);
                 AsyncStorage.setItem('pass',this.state.pass);
-               this.dataUser(obj.result.token);
-              alert("Success");
-            }else{
-              alert(obj.message);
-               // this.setState({isLoading:false});
+                AsyncStorage.setItem('data_user',responseJson);
+                this.props.navigation.navigate("Main");
+                // this.dataUser(obj.result.token);
+              }else{
+                alert("Please generate you api key.");
+                this.setState({isLoading:false});
+              }
             }
         }catch(err){
-           // this.setState({isLoading:false});
-        alert("Invalid Data");
-         this.props.navigation.goBack();
-       }
-
+          this.setState({isLoading:false});
+          alert("Invalid Data");
+          this.props.navigation.goBack();
+        }
       })
       .catch((error) => {
-        alert("Invalid Data");
-         // this.setState({isLoading:false});
-      }
-      );
-
-       
+        alert("Invalid Data Or Check Your Connection.");
+        this.setState({isLoading:false});
+      });
   }
 
   dataUser(token){
- 
- // console.warn(token);
-     return fetch('https://www.cavallocoin.co/api/user', {
-  method: 'GET',
-   headers: { 'Content-Type': 'application/json',
-              'authorization':'Bearer '+ token}
-})
-      .then((response) => response.text())
-      .then((responseJson) => {
-         // this.setState({isLoading:false});
-        // console.warn(responseJson);
-        var obj = JSON.parse(responseJson);
-       AsyncStorage.setItem('data_user',responseJson);
-        this.props.navigation.navigate("Profile");
-      })
-      .catch((error) => {
-        alert("Invalid Data");
-         // this.setState({isLoading:false});
+    return fetch('https://www.cavallocoin.co/api/user', {
+      method: 'GET',
+      headers: { 
+        'Content-Type': 'application/json',
+        'authorization':'Bearer '+ token
       }
-      );
-
-       
+    })
+    .then((response) => response.text())
+    .then((responseJson) => {
+      // this.setState({isLoading:false});
+      // console.warn(responseJson);
+      var obj = JSON.parse(responseJson);
+      AsyncStorage.setItem('data_user',responseJson);
+      this.props.navigation.navigate("Profile");
+    })
+    .catch((error) => {
+      alert("Invalid Data");
+      // this.setState({isLoading:false});
+    }
+    );
   }
 
- 
- 
   render() {
-
-   
-    const navigation = this.props.navigation;
-
-     if (this.state.isLoading) {
+  const navigation = this.props.navigation;
+    if (this.state.isLoading) {
       return (
-       <View style={styles.background}>
-        <Text style={styles.text_aktif}>Loading....</Text>
-          
-        <ActivityIndicator style={{
+        <View style={styles.background}>
+          <Text style={styles.text_aktif}>Loading....</Text>
+          <ActivityIndicator style={{
           alignItems: 'center',
           justifyContent: 'center',
           padding: 8}}   size="large"
-               color="#aa00aa"/>
-              </View>
-
-            );
+          color="#aa00aa"/>
+        </View>
+      );
     }
-
     return (
- <Container style={{backgroundColor:"#000033"}}>
- <Image
-          source={require("../../../assets/bg-transparent.png")}
-          style={styles.container}
+      <Container style={{backgroundColor:"#000033"}}>
+        <Image
+        source={require("../../../assets/bg-transparent.png")}
+        style={styles.container}
         >
-     <View >
-       <Header>
-          <Left>
-            <Button transparent onPress={() =>  this.props.navigation.goBack()}>
-              <Icon active name="arrow-back" />
-            </Button>
-          </Left>
-          <Body>
-            <Image source={logo} style={styles.imageHeader} />
-          </Body>
-          <Right />
-        </Header>
-         <Text
-                    style={
-                      Platform.OS === "android"
-                        ? { fontSize: 16, textAlign: "center", top: -5,
-                        marginTop:10 }
-                        : { fontSize: 16, fontWeight: "900",
-                        marginTop:10 }
-                    }
-                  >
-                   INPUT YOUR PASSWORD LOGIN
-                  </Text>
-        <Item rounded style={styles.inputGrp}>
-          <Icon
-            active
-            name= "unlock" 
-            style={{ color: "#fff" }}
-          /> 
-         
-          <Input
-            placeholderTextColor="#FFF"
-             style={{ fontSize:14, color:"#FFF"}}
-            placeholder="Password"
-            secureTextEntry={true}
-            onChangeText={(pass) => this.setState({pass})}
-            value={this.state.pass}
-          /> 
-          </Item>
-
-
-                <Button
-                  rounded
-                  primary
-                  block
-                  large
-                  style={{backgroundColor: "#ffbf00", marginTop:10, marginBottom:10}}
-                  onPress={() => this.login()}
-                >
-                  <Text
-                    style={
-                      Platform.OS === "android"
-                        ? { fontSize: 16, textAlign: "center", top: -5 }
-                        : { fontSize: 16, fontWeight: "900" }
-                    }
-                  >
-                   LOGIN
-                  </Text>
+          <View >
+            <Header>
+              <Left>
+                <Button transparent onPress={() =>  this.props.navigation.goBack()}>
+                <Icon active name="arrow-back" />
                 </Button>
-
-</View>
-</Image>
-</Container>
-          
+              </Left>
+              <Body>
+                <Image source={logo} style={styles.imageHeader} />
+              </Body>
+              <Right />
+            </Header>
+            <Text
+              style={
+              Platform.OS === "android"
+              ? { fontSize: 16, textAlign: "center", top: -5,
+              marginTop:10 }
+              : { fontSize: 16, fontWeight: "900",
+              marginTop:10 }
+              } >
+              INPUT YOUR PASSWORD LOGIN
+            </Text>
+            <Item rounded style={styles.inputGrp}>
+              <Icon
+              active
+              name= "unlock" 
+              style={{ color: "#fff" }}
+              /> 
+              <Input
+              placeholderTextColor="#FFF"
+              style={{ fontSize:14, color:"#FFF"}}
+              placeholder="Password"
+              secureTextEntry={true}
+              onChangeText={(pass) => this.setState({pass})}
+              value={this.state.pass}
+              /> 
+            </Item>
+            <Button
+              rounded
+              primary
+              block
+              large
+              style={{backgroundColor: "#ffbf00", marginTop:10, marginBottom:10}}
+              onPress={() => this.login()}>
+              <Text
+                style={
+                Platform.OS === "android"
+                ? { fontSize: 16, textAlign: "center", top: -5 }
+                : { fontSize: 16, fontWeight: "900" }
+                } >
+                LOGIN
+              </Text>
+            </Button>
+          </View>
+        </Image>
+      </Container>
     );
   }
 }

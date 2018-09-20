@@ -113,14 +113,13 @@ class Home extends Component {
 	}
 
 	openDetail(item){
-		this.setState({hasErrored:true});
-		// this.getBallance(item.address);
-		// this.setState({
-		// 	lLabel:item.label,
-		// 	lAddress:item.address,
-		// 	lPrivate:item.private,
-		// 	boolDetail:!this.state.boolDetail
-		// });
+		this.getBallance(item.address);
+		this.setState({
+			lLabel:item.label,
+			lAddress:item.address,
+			lPrivate:item.private,
+			boolDetail:!this.state.boolDetail
+		});
 	}
 
 	sendTransfer(){
@@ -163,7 +162,6 @@ class Home extends Component {
 	}
 
 	openSend(item){
-		console.warn(item);
 		this.setState({
 			fFrom:item.address,
 			fDestination:"",
