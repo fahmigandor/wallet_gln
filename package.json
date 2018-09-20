@@ -26,8 +26,7 @@
     "start": "react-native start",
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "test": "jest && eslint",
-    "precommit": "yarn test"
+    "test": "jest && eslint"
   },
   "jest": {
     "preset": "react-native",

@@ -37,8 +37,12 @@ class Home extends Component {
 			lAddress:"",
 			lPrivate:"",
 			lBalance:"",
+			fFrom:"",
+			fDestination:"",
+			fAmount:0,
 			token: "",
-			boolDetail : false
+			boolDetail : false,
+			boolTransfer : false
 		}
 		AsyncStorage.getItem('token', (err, result) => {
 			token = result;
@@ -109,12 +113,62 @@ class Home extends Component {
 	}
 
 	openDetail(item){
-		this.getBallance(item.address);
+		this.setState({hasErrored:true});
+		// this.getBallance(item.address);
+		// this.setState({
+		// 	lLabel:item.label,
+		// 	lAddress:item.address,
+		// 	lPrivate:item.private,
+		// 	boolDetail:!this.state.boolDetail
+		// });
+	}
+
+	sendTransfer(){
+    	this.setState({isLoading:true});
+    	console.warn(this.state.token, this.state.fFrom, this.state.fDestination, this.state.fAmount);return;
+		return fetch('https://wallet.greenline.ai/api/send/'+this.state.token+'/'+this.state.fFrom, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+			body: JSON.stringify({
+				'to_address': this.state.fDestination,
+				'amount': this.state.fAmount
+			})
+		})
+		.then((response) => response.text())
+		.then((responseJson) => {
+			try{
+				var obj = JSON.parse(responseJson);
+				if(typeof obj != "undefined"){
+					if(typeof obj.success != "undefined" && obj.success == false){
+						alert("Invalid Data.");
+						this.setState({isLoading:false});
+					}else{
+						this.setState({
+							fFrom:"",
+							fDestination:"",
+							fAmount:"",
+							isLoading:false
+						});
+					}
+				}
+			}catch(err){
+				alert("Invalid Data");
+				this.setState({isLoading:false});
+			}
+		})
+		.catch((error) => {
+			alert("Invalid Data Or Check Your Connection.");
+			this.setState({isLoading:false});
+		});
+	}
+
+	openSend(item){
+		console.warn(item);
 		this.setState({
-			lLabel:item.label,
-			lAddress:item.address,
-			lPrivate:item.private,
-			boolDetail:!this.state.boolDetail
+			fFrom:item.address,
+			fDestination:"",
+			fAmount:0,
+			boolTransfer:!this.state.boolTransfer
 		});
 	}
 
@@ -150,7 +204,7 @@ class Home extends Component {
 					alignItems: 'center'}}>
 				    <View style={{
 						width: Dimensions.get("window").width * 9 / 10,
-						height: 300,}}>
+						height: 350,}}>
 						<Header transparent={true} style={{ backgroundColor:"#001f4d"}}>
 							<Left>
 								<Button transparent onPress={() => this.setState({boolDetail:!this.state.boolDetail})}>
@@ -210,6 +264,87 @@ class Home extends Component {
 					</View>
 				</View>
 			</Modal>
+			<Modal animationType = {"slide"} transparent = {true}
+				visible = {this.state.boolTransfer}
+				onRequestClose = {()=> { console.log("Modal has been closed.") }}>
+				<View style={{
+					flex: 1,
+					flexDirection: 'column',
+					justifyContent: 'center',
+					alignItems: 'center'}}>
+				    <View style={{
+						width: Dimensions.get("window").width * 9 / 10,
+						height: 350,}}>
+						<Header transparent={true} style={{ backgroundColor:"#001f4d"}}>
+							<Left>
+								<Button transparent onPress={() => this.setState({boolTransfer:!this.state.boolTransfer})}>
+									<Icon active name="arrow-back" />
+								</Button>
+							</Left>
+							<Body>
+								<Text>Transfer</Text>
+							</Body>
+							<Right>
+							</Right>
+						</Header>
+						<ScrollView style={{backgroundColor:"#002966"}}>
+							<View style={{margin: 15}}>
+							<View style={styles.form}>
+								<Item rounded style={styles.inputGrp}>
+									<Icons name="paperclip" size={20}
+										style={{ color: "#fff", margin:5 }}
+									/>
+									<Input
+										placeholderTextColor="#FFF"
+										TextColor="#FFF"
+										style={styles.input}
+										placeholder="From"
+										secureTextEntry={false}
+										onChangeText={(from) => this.setState({fFrom: from})}
+										value={this.state.fFrom}
+									/>
+								</Item>
+								<Item rounded style={styles.inputGrp}>
+									<Icons name="paperclip" size={20}
+										style={{ color: "#fff", margin:5 }}
+									/>
+									<Input
+										placeholderTextColor="#FFF"
+										TextColor="#FFF"
+										style={styles.input}
+										placeholder="Destination"
+										secureTextEntry={false}
+										onChangeText={(destination) => this.setState({fDestination: destination})}
+										value={this.state.fDestination}
+									/>
+								</Item>
+								<Item rounded style={styles.inputGrp}>
+									<Icons name="paperclip" size={20}
+										style={{ color: "#fff", margin:5 }}
+									/>
+									<Input
+										placeholderTextColor="#FFF"
+										TextColor="#FFF"
+										style={styles.input}
+										placeholder="Amount"
+										secureTextEntry={false}
+										onChangeText={(amount) => this.setState({fAmount: amount})}
+										value={this.state.fAamount}
+									/>
+								</Item>
+								<Button info rounded block 
+									style={{marginTop: 15, margin:5}}
+									onPress={() => {this.sendTransfer()}}>
+									<Text>
+										Send
+									</Text>
+								</Button>
+							</View>
+							</View>
+						</ScrollView>
+					</View>
+				</View>
+			</Modal>
 			<Image
 			source={require("../../../../assets/bg-transparent.png")}
 			style={styles.container}
@@ -218,7 +353,7 @@ class Home extends Component {
 			<Content>
 				<View>
 			    <ScrollView horizontal={false}>
-				<Button small info block rounded style={{marginBottom: 10, margin:5}}>
+				<Button small info block rounded style={{marginBottom: 10, margin:5}} onPress={() => navigation.navigate("Create")}>
 					<Text style={{fontSize:11}}>
 						+ Create Wallet
 					</Text>
@@ -258,7 +393,8 @@ class Home extends Component {
 											{" "}Detail
 										</Text>
 									</Button>
-									<Button small success>
+									<Button small success 
+										onPress={() => this.openSend(item)}>
 										<Text style={{fontSize:11}}>
 											<Icon style={{fontSize:11}} type="FontAwesome" name="swap" />
 											{" "}Send

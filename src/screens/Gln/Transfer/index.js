@@ -37,12 +37,45 @@ class Transfer extends Component {
 			fDestination:"",
 			fAmount:"",
 			token: "",
-			boolDetail : false
+			boolDetail : false,
+			isLoading : false
 		}
 		AsyncStorage.getItem('token', (err, result) => {
 			token = result;
 			this.setState({token:token});
 			this.getListWallet(token);
+		});
+	}
+
+	getListWallet(token){
+    	this.setState({isLoading:true});
+		return fetch('https://wallet.greenline.ai/api/list/address/'+token, {
+			method: 'GET',
+			headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
+		})
+		.then((response) => response.text())
+		.then((responseJson) => {
+			try{
+				var obj = JSON.parse(responseJson);
+				if(typeof obj != "undefined"){
+					if(typeof obj.success != "undefined" && obj.success == false){
+						alert("Invalid Data.");
+						this.setState({isLoading:false});
+					}else{
+						this.setState({
+							listWallet:obj.data, 
+							isLoading:false
+						});
+					}
+				}
+			}catch(err){
+				alert("Invalid Data");
+				this.setState({isLoading:false});
+			}
+		})
+		.catch((error) => {
+			alert("Invalid Data Or Check Your Connection.");
+			this.setState({isLoading:false});
 		});
 	}
 

@@ -35,12 +35,12 @@ class Create extends Component {
 			listWallet : [],
 			label:"",
 			token: "",
-			boolDetail : false
+			boolDetail : false,
+			isLoading : false
 		}
 		AsyncStorage.getItem('token', (err, result) => {
 			token = result;
 			this.setState({token:token});
-			this.getListWallet(token);
 		});
 	}
 

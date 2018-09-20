@@ -49,46 +49,6 @@ const datas = [
     icon: "plus"
   },
   {
-    name: "Home",
-    route: "Profile",
-    icon: "home"
-  },
-  {
-    name: "Transaction",
-    route: "CommingSoon",
-    icon: "ios-timer-outline"
-  },
-  {
-    name: "Exchange",
-    route: "CommingSoon",
-    icon: "ios-shuffle-outline"
-  },
-  {
-    name: "Buy Coin COC",
-    route: "Icoprev",
-    icon: "ios-paper-outline"
-  },
-  {
-    name: "Wallet",
-    route: "depnwith",
-    icon: "ios-swap-outline"
-  },
-  {
-    name: "Settings",
-    route: "Settings",
-    icon: "ios-settings-outline"
-  },
-  {
-    name: "Team Work",
-    route: "TeamWork",
-    icon: "ios-person-outline"
-  },
-  {
-    name: "Support Ticket",
-    route: "CommingSoon",
-    icon: "ios-mail-outline"
-  },
-  {
     name: "Logout",
     route: "CommingSoon",
     icon: "log-out"

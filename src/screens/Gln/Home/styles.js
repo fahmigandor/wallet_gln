@@ -6,6 +6,17 @@ const deviceHeight = Dimensions.get("window").height;
 const primary = require("../../../theme/variables/commonColor").brandPrimary;
 
 export default {
+  input: {
+    paddingLeft: 10,
+    color: "#fff"
+  },
+  inputGrp: {
+    flexDirection: "row",
+    backgroundColor: "rgba(255,255,255,0.3)",
+    marginBottom: 8,
+    borderWidth: 0,
+    borderColor: "transparent"
+  },
   container: {
     flex: 1,
     width: null,

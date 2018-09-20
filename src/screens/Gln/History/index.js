@@ -32,7 +32,7 @@ class History extends Component {
 	constructor(props: Props) {
 		super(props);
 		this.state = {
-			listWallet : [],
+			listHistory : [],
 			lLabel:"",
 			lAddress:"",
 			lPrivate:"",
@@ -43,7 +43,7 @@ class History extends Component {
 		AsyncStorage.getItem('token', (err, result) => {
 			token = result;
 			this.setState({token:token});
-			this.getListWallet(token);
+			this.getListTransaction(token);
 		});
 	}
 
@@ -64,7 +64,7 @@ class History extends Component {
 						this.setState({isLoading:false});
 					}else{
 						this.setState({
-							listWallet:obj.data, 
+							listHistory:obj.data, 
 							isLoading:false
 						});
 					}
@@ -197,30 +197,31 @@ class History extends Component {
 				</Button>
         		<Grid style={{ backgroundColor:"#000022", margin:5}}> 
 					<Row style={{margin:5, paddingBottom:5, borderBottomColor:"#ffffff", borderBottomWidth:1}}>
-						<Col style={{width: Dimensions.get("window").width / 6}}>
-							<Text style={{fontSize:11, marginLeft:10}} >Label</Text>
-						</Col>
-						<Col style={{width: Dimensions.get("window").width * 3.3 / 10}}>
-							<Text style={{fontSize:11, marginLeft:10}} >Address</Text>
+						<Col>
+							<Text style={{fontSize:11, marginLeft:10}} >Transaction</Text>
 						</Col>
 						<Col>
-							<Text style={{fontSize:11, marginLeft:10}} >Ballance</Text>
+							<Text style={{fontSize:11, marginLeft:10}} >address</Text>
+						</Col>
+						<Col>
+							<Text style={{fontSize:11, marginLeft:10}} >amount</Text>
 						</Col>
 						<Col>
 							<Text style={{fontSize:11, marginLeft:10}} >Action</Text>
 						</Col>
 					</Row>
-					{this.state.listWallet.map((item, index) => {
+					{this.state.listHistory.map((item, index) => {
 						return (
 							<Row style={{margin:10}}>
-								<Col style={{width: Dimensions.get("window").width / 6}}>
-									<Text style={{fontSize:11, marginLeft:10}} >{item.label}</Text>
-								</Col>
-								<Col style={{width: Dimensions.get("window").width * 3.3 / 10}}>
-									<Text style={{fontSize:11, marginLeft:10}} >{item.address}</Text>
+								<Col>
+									<Text style={{fontSize:11, marginLeft:10}} >{item.kode}</Text>
 								</Col>
 								<Col>
-									<Text style={{fontSize:11, marginLeft:10}} >Gln: 100000</Text>
+									<Text style={{fontSize:11, marginLeft:10}} >{item.from}</Text>
+									<Text style={{fontSize:11, marginLeft:10}} >{item.destination}</Text>
+								</Col>
+								<Col>
+									<Text style={{fontSize:11, marginLeft:10}} >{item.amount} GLN</Text>
 								</Col>
 								<Col>
 									<Button small success style={{marginBottom:5}}
