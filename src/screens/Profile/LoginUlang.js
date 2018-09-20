@@ -123,7 +123,6 @@ class LoginUlangForm extends Component {
       .catch((error) => {
         alert("Invalid Data Or Check Your Connection.");
         this.setState({isLoading:false});
-      }
       });
 
        
@@ -204,7 +203,6 @@ class LoginUlangForm extends Component {
               : { fontSize: 16, fontWeight: "900",
               marginTop:10 }
               } >
-                  >
               INPUT YOUR PASSWORD LOGIN
             </Text>
             <Item rounded style={styles.inputGrp}>
@@ -232,14 +230,12 @@ class LoginUlangForm extends Component {
               large
               style={{backgroundColor: "#ffbf00", marginTop:10, marginBottom:10}}
               onPress={() => this.login()}>
-                >
               <Text
                 style={
                 Platform.OS === "android"
                 ? { fontSize: 16, textAlign: "center", top: -5 }
                 : { fontSize: 16, fontWeight: "900" }
                 } >
-                  >
                 LOGIN
               </Text>
             </Button>

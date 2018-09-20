@@ -21,6 +21,8 @@ import {
 } from "native-base";
 import Icons from 'react-native-vector-icons/FontAwesome';
 import styles from "./styles";
+import SearchableDropDown from 'react-native-searchable-dropdown';
+import AutoComplete from "react-native-autocomplete";
 
 type Props = {
   navigation: () => void
@@ -33,6 +35,7 @@ class Transfer extends Component {
 		super(props);
 		this.state = {
 			listWallet : [],
+			selectWallet : [],
 			fFrom:"",
 			fDestination:"",
 			fAmount:"",
@@ -62,8 +65,38 @@ class Transfer extends Component {
 						alert("Invalid Data.");
 						this.setState({isLoading:false});
 					}else{
+						var selectWallet = [];
+						var push = "";
+						obj.data.forEach(function(item){
+							push = {id: item.data, name: item.label} ;
+							selectWallet.push(push);
+							selectWallet.push(push);
+							selectWallet.push(push);
+							selectWallet.push(push);
+							selectWallet.push(push);
+							selectWallet.push(push);
+							selectWallet.push(push);
+							selectWallet.push(push);
+							selectWallet.push(push);
+							selectWallet.push(push);
+							selectWallet.push(push);
+							selectWallet.push(push);
+							selectWallet.push(push);
+							selectWallet.push(push);
+							selectWallet.push(push);
+							selectWallet.push(push);
+							selectWallet.push(push);
+							selectWallet.push(push);
+							selectWallet.push(push);
+							selectWallet.push(push);
+							selectWallet.push(push);
+							selectWallet.push(push);
+							selectWallet.push(push);
+							selectWallet.push(push);
+						});
 						this.setState({
 							listWallet:obj.data, 
+							selectWallet: selectWallet,
 							isLoading:false
 						});
 					}
@@ -116,6 +149,18 @@ class Transfer extends Component {
 			this.setState({isLoading:false});
 		});
 	}
+
+  onTyping(text) {
+    const countries = listWallet.filter(item =>
+      item.label.toLowerCase().startsWith(text.toLowerCase())
+    ).map((item) => item.label);
+
+    this.setState({ selectWallet: countries });
+  }
+
+  onSelect(value) {
+    AlertIOS.alert("You choosed", value);
+  }
 
     render() {
 		if (this.state.isLoading) {
@@ -176,6 +221,37 @@ class Transfer extends Component {
 				<View style={{marginTop: Dimensions.get("window").height * 0 / 10}}>
 					<View style={{margin: Dimensions.get("window").width * 1 / 10}}>
 					<View style={styles.form}>
+							<AutoComplete
+							style={{alignSelf: "stretch",
+							    height: 50,
+							    margin: 10,
+							    marginTop: 50,
+							    backgroundColor: "#FFF",
+							    borderColor: "lightblue",
+							    borderWidth: 1}}
+							suggestions={this.state.selectWallet}
+							onTyping={this.onTyping}
+							onSelect={this.onSelect}
+							placeholder="Search for a country"
+							clearButtonMode="always"
+							returnKeyType="go"
+							textAlign="center"
+							clearTextOnFocus
+							autoCompleteTableTopOffset={10}
+							autoCompleteTableLeftOffset={20}
+							autoCompleteTableSizeOffset={-40}
+							autoCompleteTableBorderColor="lightblue"
+							autoCompleteTableBackgroundColor="azure"
+							autoCompleteTableCornerRadius={8}
+							autoCompleteTableBorderWidth={1}
+							autoCompleteFontSize={15}
+							autoCompleteRegularFontName="Helvetica Neue"
+							autoCompleteBoldFontName="Helvetica Bold"
+							autoCompleteTableCellTextColor={"dimgray"}
+							autoCompleteRowHeight={40}
+							autoCompleteFetchRequestDelay={100}
+							maximumNumberOfAutoCompleteRows={6}
+							/>
 						<Item reguler style={styles.inputGrp}>
 							<Icons name="paperclip" size={20}
 								style={{ color: "#fff", margin:5 }}

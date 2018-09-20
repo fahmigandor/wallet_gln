@@ -17,6 +17,15 @@ export default {
     borderWidth: 0,
     borderColor: "transparent"
   },
+  picker: {
+    paddingLeft: 10,
+    flexDirection: "row",
+    backgroundColor: "rgba(255,255,255,0.3)",
+    marginBottom: 8,
+    borderWidth: 0,
+    borderColor: "transparent",
+    color: "#fff"
+  },
   container: {
     flex: 1,
     width: null,
