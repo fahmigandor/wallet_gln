@@ -1,4 +1,4 @@
-package com.cavallowallet;
+package com.greenlinewallet;
 
 import com.facebook.react.ReactActivity;
 
@@ -10,6 +10,6 @@ public class MainActivity extends ReactActivity {
      */
     @Override
     protected String getMainComponentName() {
-        return "Cavallo Wallet";
+        return "Greenline Wallet";
     }
 }
