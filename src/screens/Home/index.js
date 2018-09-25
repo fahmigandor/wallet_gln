@@ -79,7 +79,7 @@ class Home extends Component {
     } else {
       return (
         <Container>
-          <Header backgroundColor="#000033">
+          <Header backgroundColor="#000">
             <Left>
               <Button
                 transparent

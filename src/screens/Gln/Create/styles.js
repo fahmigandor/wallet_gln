@@ -21,7 +21,7 @@ export default {
     flex: 1,
     width: null,
     height: null,
-    backgroundColor: "000"
+    backgroundColor: "#000"
   },
    background: {
     flex: 1,
@@ -30,7 +30,7 @@ export default {
     backgroundColor: "#000"
   },
   Content: {
-    backgroundColor: "000"
+    backgroundColor: primary
   },
   profileInfoContainer: {
     backgroundColor: primary,

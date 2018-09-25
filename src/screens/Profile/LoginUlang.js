@@ -27,7 +27,7 @@ import Head from "../head/head.js";
 
 import styles from "./styles";
 import datas from "./data";
-const logo = require("../../../assets/cava.png");
+const logo = require("../../../assets/gnc-2.png");
 
   const email = value =>
   value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
@@ -171,20 +171,20 @@ class LoginUlangForm extends Component {
           alignItems: 'center',
           justifyContent: 'center',
           padding: 8}}   size="large"
-          color="#aa00aa"/>
+          color="#fff"/>
         </View>
 
       );
     }
 
     return (
-      <Container style={{backgroundColor:"#000033"}}>
+      <Container style={{backgroundColor:"#2E8B57"}}>
         <Image
         source={require("../../../assets/bg-transparent.png")}
-        style={styles.container}
+        style={styles.container1}
         >
           <View >
-            <Header>
+            <Header style= {{marginBottom:"40%", backgroundColor: "#000"}}>
               <Left>
                 <Button transparent onPress={() =>  this.props.navigation.goBack()}>
                 <Icon active name="arrow-back" />
@@ -228,7 +228,7 @@ class LoginUlangForm extends Component {
               primary
               block
               large
-              style={{backgroundColor: "#ffbf00", marginTop:10, marginBottom:10}}
+              style={{backgroundColor: "#000", marginTop:10, marginBottom:10}}
               onPress={() => this.login()}>
               <Text
                 style={

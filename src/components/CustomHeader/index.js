@@ -11,7 +11,7 @@ class CustomHeader extends Component {
   render() {
     const navigation = this.props.navigation;
     return (
-      <Header hasTabs={this.props.hasTabs}>
+      <Header hasTabs={this.props.hasTabs} style={{backgroundColor: "#000"}}>
         <Left>
           <Button transparent onPress={() => navigation.navigate("DrawerOpen")}>
             <Icon active name="menu" style={{ color: "#fff" }}/>

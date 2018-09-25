@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^6.2.2",
+    "@haskkor/react-native-pincode": "^1.6.4",
     "color": "1.0.3",
     "immutable": "^3.8.2",
     "jest-cli": "20.0.4",

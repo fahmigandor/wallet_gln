@@ -357,42 +357,44 @@ class Home extends Component {
 					</Text>
 				</Button>
         		<Grid style={{ backgroundColor:"#fff", margin:5}}> 
-					<Row style={{margin:5, paddingBottom:5, borderBottomColor:"#000", borderBottomWidth:1}}>
+					<Row style={styles.row}>
 						<Col style={{width: Dimensions.get("window").width / 6}}>
-							<Text style={{fontSize:11, marginLeft:10, color: "#000"}} >Label</Text>
+							<Text style={styles.textRow} >Label</Text>
 						</Col>
 						<Col style={{width: Dimensions.get("window").width * 3.3 / 10}}>
-							<Text style={{fontSize:11, marginLeft:10, color: "#000"}} >Address</Text>
+							<Text style={styles.textRow} >Address</Text>
 						</Col>
 						<Col>
-							<Text style={{fontSize:11, marginLeft:10, color: "#000"}} >Ballance</Text>
+							<Text style={styles.textRow} >Ballance</Text>
 						</Col>
 						<Col>
-							<Text style={{fontSize:11, marginLeft:10, color: "#000"}} >Action</Text>
+							<Text style={styles.textRow} >Action</Text>
 						</Col>
 					</Row>
 					{this.state.listWallet.map((item, index) => {
 						return (
 							<Row style={{margin:10}}>
 								<Col style={{width: Dimensions.get("window").width / 6}}>
-									<Text style={{fontSize:11, marginLeft:10, color: "#000"}} >{item.label}</Text>
+									<Text style={styles.textRow} >{item.label}</Text>
 								</Col>
 								<Col style={{width: Dimensions.get("window").width * 3.3 / 10}}>
-									<Text style={{fontSize:11, marginLeft:10, color: "#000"}} >{item.address}</Text>
+									<Text style={styles.textRow} >{item.address}</Text>
 								</Col>
 								<Col>
-									<Text style={{fontSize:11, marginLeft:10, color: "#000"}} >Gln: 100000</Text>
+									<Text style={styles.textRow} >Gln: 100000</Text>
 								</Col>
 								<Col>
-									<Button rounded style={{marginBottom:3, backgroundColor: "#2E8B57"}}
+									<Button style={styles.buttonCol}
 										onPress={() => {this.openDetail(item);}}>
-										<Text style={{fontSize:11}}>
+										<Text style={{fontSize:11, alignSelf: "center"}}>
+											<Icons name="eye" size={11} style={{ color: "#fff" }}/>
 											{" "}Detail
 										</Text>
 									</Button>
-									<Button rounded style={{backgroundColor: "#2E8B57"}}
+									<Button style={styles.buttonCol}
 										onPress={() => this.openSend(item)}>
 										<Text style={{fontSize:11}}>
+											<Icon name="navigate" style={{fontSize: 11, color: '#fff'}}/>
 											{" "}Send
 										</Text>
 									</Button>

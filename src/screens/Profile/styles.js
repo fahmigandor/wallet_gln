@@ -22,7 +22,7 @@ export default {
     flex: 1,
     width: null,
     height: deviceHeight,
-    backgroundColor: "#000033"
+    backgroundColor: "#2E8B57"
   },
   Content: {
     backgroundColor: primary

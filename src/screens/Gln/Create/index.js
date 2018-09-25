@@ -92,7 +92,7 @@ class Create extends Component {
 							alignItems: 'center',
 							justifyContent: 'center',
 							padding: 8}}   size="large"
-							color="#aa00aa"/>
+							color="#fff"/>
 					</View>
 				</View>
 			);
@@ -111,17 +111,12 @@ class Create extends Component {
 				    <View style={{
 						width: Dimensions.get("window").width * 9 / 10,
 						height: 300,}}>
-						<Header transparent={true} style={{ backgroundColor:"#000"}}>
+						<Header>
 							<Left>
 								<Button transparent onPress={() => this.setState({boolDetail:!this.state.boolDetail})}>
 									<Icon active name="arrow-back" />
 								</Button>
 							</Left>
-							<Body>
-								<Text>Detail</Text>
-							</Body>
-							<Right>
-							</Right>
 						</Header>
 						<ScrollView style={styles.container}>
 						</ScrollView>
@@ -133,7 +128,7 @@ class Create extends Component {
 			style={styles.container}
 			>
 			<CustomHeader hasTabs navigation={navigation} />
-			<Content>
+			<Content style={{marginTop: "40%"}}>
 				<View style={{marginTop: Dimensions.get("window").height * 0 / 10}}>
 					<View style={{margin: Dimensions.get("window").width * 1 / 10}}>
 					<View style={styles.form}>
@@ -152,7 +147,7 @@ class Create extends Component {
 							/>
 						</Item>
 						<Button info rounded block 
-							style={{marginTop: 15, margin:5}}
+							style={{marginTop: 15, margin:5, backgroundColor: "#2E8B57"}}
 							onPress={() => {this.createWallet()}}>
 							<Text>
 								+ Create Wallet
