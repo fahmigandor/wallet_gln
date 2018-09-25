@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, StyleSheet, View, ListView, TextInput, ActivityIndicator, Alert } from 'react-native';
 import { Button } from "native-base";
 
-export default class SelectBox extends Component {
+export default class ReLogin extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {

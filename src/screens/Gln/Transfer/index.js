@@ -24,7 +24,7 @@ import Icons from 'react-native-vector-icons/FontAwesome';
 import styles from "./styles";
 import AutoComplete from 'native-base-autocomplete';
 import SelectBox from "./SelectBox";
-import ReLogin from "../ReLogin";
+import ReLogin from "../ReLogin/pinlock";
 
 type Props = {
   navigation: () => void
