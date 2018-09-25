@@ -41,11 +41,16 @@ class Transfer extends Component {
 			fDestination:"",
 			fAmount:"",
 			isLoading : false,
+			counterLogin: 0,
+			boolReLogin: false,
 			boolFrom: false,
 			boolTo: false
 		}
 		AsyncStorage.getItem('token', (err, result) => {
 			this.token = result;
+			AsyncStorage.getItem('pass', (err, result) => {
+				this.pass = result;
+			});
 			this.getListWallet();
 			this.setState({token:this.token});
 		});
@@ -82,14 +87,6 @@ class Transfer extends Component {
 			alert("Invalid Data Or Check Your Connection.");
 			this.setState({isLoading:false});
 		});
-	}
-
-	callbackReLogin(status = false){
-
-	}
-
-	reLogin(){
-
 	}
 
 	sendTransfer(){
@@ -139,12 +136,25 @@ class Transfer extends Component {
 		});
 	}
 
-	openFrom(status = true){
-		if(status){
-    		this.setState({boolFrom:!this.state.boolFrom});
-		}else{
-    		this.setState({boolTo:!this.state.boolTo});
+	openModal(code){
+		switch(code) {
+		    case "from":
+	    		this.setState({boolFrom:!this.state.boolFrom});
+	        break;
+		    case "to":
+	    		this.setState({boolTo:!this.state.boolTo});
+	        break;
+		    case "ReLogin":
+	    		this.setState({boolReLogin:!this.state.boolReLogin});
+	        break;
+		    default:
+		    	alert("Nothing any statement");
 		}
+		// if(status){
+  //   		this.setState({boolFrom:!this.state.boolFrom});
+		// }else{
+  //   		this.setState({boolTo:!this.state.boolTo});
+		// }
 	}
 
 	callBackFrom = (ffrom) => {
@@ -158,6 +168,32 @@ class Transfer extends Component {
 		this.setState({
 			fDestination:fdestination,
 			boolTo:!this.state.boolTo
+		});
+	}
+
+	callBackReLogin = (status = false) => {
+		if(status){
+			this.setState({boolReLogin:!this.state.boolReLogin, counterLogin:0}, function(){
+				this.sendTransfer();
+			});
+		}else{
+			this.setState({counterLogin:(this.state.counterLogin + 1)}, function(){
+				alert("Wrong Password 1x.");
+				if(this.state.counterLogin == 3){
+					this.setState({boolReLogin:!this.state.boolReLogin, counterLogin:0}, function(){
+					    AsyncStorage.setItem('token',"");
+					    AsyncStorage.setItem('data_user',"");
+					    AsyncStorage.setItem('pass',"");
+					    this.props.navigation.navigate("Login");
+					});
+				}
+			});
+		}
+	}
+
+	reLogin(){
+		this.setState({
+			boolReLogin:!this.state.boolReLogin
 		});
 	}
 
@@ -183,6 +219,36 @@ class Transfer extends Component {
     	const navigation = this.props.navigation;
         return (
 		<Container>
+			<Modal animationType = {"slide"} transparent={true} 
+				visible={this.state.boolReLogin}
+				onRequestClose = {()=> { console.log("Modal has been closed.") }}>
+				<View style={{height: Dimensions.get("window").height,}}>
+				{/*<View style={{
+					flex: 1,
+					flexDirection: 'column',
+					justifyContent: 'center',
+					alignItems: 'center'}}>
+					<View style={{
+						width: Dimensions.get("window").width * 9 / 10,
+						height: 300,}}>*/}
+						<Header transparent={true} style={{ backgroundColor:"#001f4d"}}>
+							<Left>
+								<Button transparent onPress={() => this.setState({boolReLogin:!this.state.boolReLogin})}>
+									<Icon active name="arrow-back" />
+								</Button>
+							</Left>
+							<Body>
+								<Text>Input Password</Text>
+							</Body>
+							<Right>
+							</Right>
+						</Header>
+						<ScrollView style={styles.container}>
+							<ReLogin pass={this.pass} callback={this.callBackReLogin} />
+						</ScrollView>
+					{/*</View>*/}
+				</View>
+			</Modal>
 			<Modal animationType = {"slide"} transparent={true} 
 				visible={this.state.boolFrom}
 				onRequestClose = {()=> { console.log("Modal has been closed.") }}>
@@ -252,7 +318,7 @@ class Transfer extends Component {
 				<View style={{marginTop: Dimensions.get("window").height * 0 / 10}}>
 					<View style={{margin: Dimensions.get("window").width * 1 / 10}}>
 					<View style={styles.form}>
-						<TouchableOpacity onPress={() => { this.openFrom() }}>
+						<TouchableOpacity onPress={() => { this.openModal("from") }}>
 						<View pointerEvents='none'>
 							<TextInput 
 								editable={false}
@@ -263,7 +329,7 @@ class Transfer extends Component {
 							/>
 						</View>
 						</TouchableOpacity>
-						<TouchableOpacity onPress={() => { this.openFrom(false) }}>
+						<TouchableOpacity onPress={() => { this.openModal("to") }}>
 						<View pointerEvents='none'>
 							<TextInput 
 								editable={false}
@@ -283,7 +349,7 @@ class Transfer extends Component {
 						/>
 						<Button info rounded block 
 							style={{marginTop: 15, margin:5}}
-							onPress={() => {this.sendTransfer()}}>
+							onPress={() => {this.reLogin()}}>
 							<Text>
 								+ Send
 							</Text>

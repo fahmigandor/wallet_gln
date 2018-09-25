@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-
 import { Text, StyleSheet, View, ListView, TextInput, ActivityIndicator, Alert } from 'react-native';
+import { Button } from "native-base";
 
 export default class SelectBox extends Component {
 	constructor(props) {
@@ -10,26 +10,20 @@ export default class SelectBox extends Component {
 			email: '',
 			password: '',
 		}
-		AsyncStorage.getItem('token', (err, result) => {
-			if(typeof obj != "undefined" && result != null && result != ""){
-				this.props.navigation.navigate("LoginUlang");
-			}
-		});
+		this.pass = "";
 	}
  
 	componentDidMount() {
-    	var data = this.props.data;
-		let ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-		this.setState({
-			isLoading: false,
-			dataSource: ds.cloneWithRows(data),
-		}, function() {
-			this.arrayholder = data ;
-		});
+    	this.pass = this.props.pass;
+		this.setState({isLoading: false});
 	}
 
-	GetListViewItem(status) {
-		this.props.sendStatus(status);
+	callback(){
+		if(this.state.password == this.pass){
+			this.props.callback(true);
+		}else{
+			this.props.callback(false);
+		}
 	}
   
 	render() {
@@ -44,19 +38,18 @@ export default class SelectBox extends Component {
 			<View style={styles.MainContainer}>
 				<TextInput 
 					style={styles.TextInputStyleClass}
-					onChangeText={(text) => this.SearchFilterFunction(text)}
-					value={this.state.text}
+					onChangeText={(text) => this.setState({password:text})}
+					value={this.state.password}
 					underlineColorAndroid='transparent'
-					placeholder="Search Here"
+					placeholder="Password"
 				/>
-			<ListView
-				dataSource={this.state.dataSource}
-				renderSeparator= {this.ListViewItemSeparator}
-				renderRow={(rowData) => <Text style={styles.rowViewContainer} 
-				onPress={this.GetListViewItem.bind(this, rowData.address)} >{rowData.label}</Text>}
-				enableEmptySections={true}
-				style={{marginTop: 10}}
-			/>
+				<Button info rounded block 
+					style={{marginTop: 15, margin:5}}
+					onPress={() => {this.callback()}}>
+					<Text>
+						Send
+					</Text>
+				</Button>
 			</View>
 		);
 	}
