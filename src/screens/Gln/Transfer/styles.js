@@ -6,6 +6,15 @@ const deviceHeight = Dimensions.get("window").height;
 const primary = require("../../../theme/variables/commonColor").brandPrimary;
 
 export default {
+  TextInputStyleClass:{
+    textAlign: 'center',
+    height: 40,
+    borderWidth: 1,
+    borderColor: '#009688',
+    marginBottom: 8,
+    borderRadius: 7 ,
+    backgroundColor : "#FFFFFF"
+  },
   input: {
     paddingLeft: 10,
     color: "#fff"
