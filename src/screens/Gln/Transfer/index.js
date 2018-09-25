@@ -178,7 +178,7 @@ class Transfer extends Component {
 			});
 		}else{
 			this.setState({counterLogin:(this.state.counterLogin + 1)}, function(){
-				alert("Wrong Password 1x.");
+				alert("Wrong Password "+this.state.counterLogin+"x.");
 				if(this.state.counterLogin == 3){
 					this.setState({boolReLogin:!this.state.boolReLogin, counterLogin:0}, function(){
 					    AsyncStorage.setItem('token',"");
