@@ -27,7 +27,6 @@ import SelectBox from "./SelectBox";
 import EnterPin from "../ReLogin/enterPinlock";
 import CreatePin from "../ReLogin/createPinlock";
 import Pin from "../ReLogin/pin";
-import KeyboardView from "../ReLogin/tes";
 
 type Props = {
   navigation: () => void
