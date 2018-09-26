@@ -24,7 +24,8 @@ export default {
     backgroundColor: "rgba(255,255,255,0.3)",
     marginBottom: 8,
     borderWidth: 0,
-    borderColor: "transparent"
+    borderColor: "transparent",
+    textAlign: 'center'
   },
   picker: {
     paddingLeft: 10,
@@ -45,7 +46,7 @@ export default {
     flex: 1,
     width: null,
     height: deviceHeight,
-    backgroundColor: "#000033"
+    backgroundColor: "#2E8B57"
   },
   Content: {
     backgroundColor: primary

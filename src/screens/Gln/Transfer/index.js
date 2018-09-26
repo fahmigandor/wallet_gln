@@ -212,7 +212,7 @@ class Transfer extends Component {
 							alignItems: 'center',
 							justifyContent: 'center',
 							padding: 8}}   size="large"
-							color="#aa00aa"/>
+							color="#fff"/>
 					</View>
 				</View>
 			);
@@ -244,8 +244,12 @@ class Transfer extends Component {
 			<Modal animationType = {"slide"} transparent={true} 
 				visible={this.state.boolFrom}
 				onRequestClose = {()=> { console.log("Modal has been closed.") }}>
+				<Image
+					source={require("../../../../assets/bgs.png")}
+					style={styles.container}
+					>
 				<View style={{height: Dimensions.get("window").height,}}>
-					<Header transparent={true} style={{ backgroundColor:"#001f4d"}}>
+					<Header transparent={true} style={{ backgroundColor:"#000"}}>
 						<Left>
 							<Button transparent onPress={() => this.setState({boolFrom:!this.state.boolFrom})}>
 								<Icon active name="arrow-back" />
@@ -257,16 +261,21 @@ class Transfer extends Component {
 						<Right>
 						</Right>
 					</Header>
-					<ScrollView style={styles.container}>
+					<ScrollView>
 						<SelectBox data={this.state.listWallet} callback={this.callBackFrom} />
 					</ScrollView>
 				</View>
+				</Image>
 			</Modal>
 			<Modal animationType = {"slide"} transparent={true} 
 				visible={this.state.boolTo}
 				onRequestClose = {()=> { console.log("Modal has been closed.") }}>
+				<Image
+					source={require("../../../../assets/bgs.png")}
+					style={styles.container}
+					>
 				<View style={{height: Dimensions.get("window").height,}}>
-					<Header transparent={true} style={{ backgroundColor:"#001f4d"}}>
+					<Header transparent={true} style={{ backgroundColor:"#000"}}>
 						<Left>
 							<Button transparent onPress={() => this.setState({boolTo:!this.state.boolTo})}>
 								<Icon active name="arrow-back" />
@@ -278,13 +287,14 @@ class Transfer extends Component {
 						<Right>
 						</Right>
 					</Header>
-					<ScrollView style={styles.container}>
+					<ScrollView >
 						<SelectBox data={this.state.listWallet} callback={this.callBackTo} />
 					</ScrollView>
 				</View>
+				</Image>
 			</Modal>
 			<Image
-			source={require("../../../../assets/bg-transparent.png")}
+			source={require("../../../../assets/bgs.png")}
 			style={styles.container}
 			>
 			<CustomHeader hasTabs navigation={navigation} />
@@ -296,8 +306,10 @@ class Transfer extends Component {
 						<View pointerEvents='none'>
 							<TextInput 
 								editable={false}
-								style={styles.TextInputStyleClass}
+								style={styles.inputGrp}
 								value={this.state.fFrom}
+								textColor="#fff"
+    							placeholderTextColor="#fff"
 								underlineColorAndroid='transparent'
 								placeholder="Destination"
 							/>
@@ -307,7 +319,9 @@ class Transfer extends Component {
 						<View pointerEvents='none'>
 							<TextInput 
 								editable={false}
-								style={styles.TextInputStyleClass}
+								style={styles.inputGrp}
+								textColor="#fff"
+    							placeholderTextColor="#fff"
 								value={this.state.fDestination}
 								underlineColorAndroid='transparent'
 								placeholder="Destination"
@@ -315,14 +329,16 @@ class Transfer extends Component {
 						</View>
 						</TouchableOpacity>
 						<TextInput 
-							style={styles.TextInputStyleClass}
+							style={styles.inputGrp}
+							textColor="#fff"
+    						placeholderTextColor="#fff"
 							onChangeText={(amount) => this.setState({fAmount: amount})}
 							value={this.state.fAmount}
 							underlineColorAndroid='transparent'
 							placeholder="Amount"
 						/>
 						<Button info rounded block 
-							style={{marginTop: 15, margin:5}}
+							style={{marginTop: 15, margin:5, backgroundColor: "#2E8B57"}}
 							onPress={() => {this.openPin()}}>
 							<Text>
 								Send
