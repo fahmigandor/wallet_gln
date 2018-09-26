@@ -9,10 +9,11 @@ export default class Pin extends Component {
 		this.state = {
 			isLoading: true
 		}
-		this.pin = [];
+		this.pin = [0,0,0,0];
 	}
  
 	componentDidMount() {
+		console.warn(this.props.pin);
     	this.pin = this.props.pin;
 		this.setState({isLoading: false});
 	}

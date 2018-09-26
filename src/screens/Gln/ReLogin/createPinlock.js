@@ -7,23 +7,23 @@ export default class CreatePinLock extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			isLoading: true,
+			isLoading: false,
 			email: '',
-			password: '',
 		}
-		this.pass = "";
 	}
  
-	componentDidMount() {
-    	this.pass = this.props.pass;
-		this.setState({isLoading: false});
-	}
+	// componentDidMount() {
+	// 	this.setState({isLoading: false});
+	// }
 
 	callback(){
 		this.props.callback(true);
 	}
 
 	savePin(pin){
+		console.warn(pin);
+		var pin = pin.split("").map(Number);
+		console.warn(JSON.stringify(JSON.parse("[" + string + "]")));
         AsyncStorage.setItem('pin',pin);
 		this.callback();
 	}

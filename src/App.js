@@ -13,6 +13,7 @@ import Transfer from "./screens/Gln/Transfer/";
 import History from "./screens/Gln/History/";
 import Create from "./screens/Gln/Create/";
 import Main from "./screens/Gln/Home/";
+import Setting from "./screens/Gln/Setting/";
 import Home from "./screens/Home/";
 import Channels from "./screens/Channels";
 import Sidebar from "./screens/Sidebar";
@@ -46,6 +47,7 @@ const Drawer = DrawerNavigator(
     Profile: { screen: Profile },
     Icoprev: { screen: Icoprev },
     depnwith: { screen: depnwith },
+    Setting: { screen: Setting },
     Settings: { screen: Settings },
      LoginUlang: { screen: LoginUlang },
        TeamWork: { screen: TeamWork },

@@ -49,8 +49,8 @@ const datas = [
     icon: "paper"
   },
   {
-    name: "Settings",
-    route: "",
+    name: "Setting",
+    route: "Setting",
     icon: "settings"
   },
   {
