@@ -22,10 +22,8 @@ import {
 } from "native-base";
 import Icons from 'react-native-vector-icons/FontAwesome';
 import styles from "./styles";
-import EnterPin from "../ReLogin/enterPinlock";
-import CreatePin from "../ReLogin/createPinlock";
 import Pin from "../ReLogin/pin";
-import KeyboardView from "../ReLogin/tes";
+import KeyboardView from "../ReLogin/mainpin";
 
 type Props = {
   navigation: () => void
@@ -55,9 +53,9 @@ class Setting extends Component {
 
 	componentDidMount() {
 		AsyncStorage.getItem('pin', (err, result) => {
-			console.warn(result);
-			this.setState({pin:JSON.parse(result)})
-			// this.pin = result;
+			if(result != null){
+				this.setState({pin:JSON.parse(result)})
+			}
 		});
 	}
 	
@@ -67,14 +65,6 @@ class Setting extends Component {
 		});
 	}
 	updatePin(){
-		this.setState({
-			boolPin:!this.state.boolPin
-		});
-		this.setState({
-			boolUpdatePin:!this.state.boolUpdatePin
-		});
-	}
-	enterPin(){
 		this.setState({
 			boolPin:!this.state.boolPin
 		});
@@ -102,17 +92,14 @@ class Setting extends Component {
 	callbackCreatePin = (status) => {
 		if(status){
 			AsyncStorage.getItem('pin', (err, result) => {
-				this.setState({pin:result});
+				this.setState({pin:JSON.parse(result), boolCreatePin:!this.state.boolCreatePin});
 			});
-			console.warn(this.state.pin);
 		}
 	}
 	callbackUpdatePin = (status) => {}
 
 	setPin(){
 		if(this.state.pin.length > 0){
-			console.warn(this.state.pin);
-			return;
 			this.updatePin()
 		}else{
 			this.createPin()
@@ -183,33 +170,12 @@ class Setting extends Component {
 						</Right>
 					</Header>
 					<ScrollView style={styles.container}>
-						<CreatePin callback={this.callbackCreatePin} />
-					</ScrollView>
-				</View>
-			</Modal>
-			<Modal animationType = {"slide"} transparent={true} 
-				visible={this.state.boolUpdatePin}
-				onRequestClose = {()=> { console.log("Modal has been closed.") }}>
-				<View style={{height: Dimensions.get("window").height,}}>
-					<Header transparent={true} style={{ backgroundColor:"#001f4d"}}>
-						<Left>
-							<Button transparent onPress={() => this.setState({boolUpdatePin:!this.state.boolUpdatePin})}>
-								<Icon active name="arrow-back" />
-							</Button>
-						</Left>
-						<Body>
-							<Text>Update Pin</Text>
-						</Body>
-						<Right>
-						</Right>
-					</Header>
-					<ScrollView style={styles.container}>
-						<CreatePin pin={this.state.pin} callback={this.callbackUpdatePin} />
+						<KeyboardView callback={this.callbackCreatePin} />
 					</ScrollView>
 				</View>
 			</Modal>
 			<Image
-			source={require("../../../../assets/bg-transparent.png")}
+			source={require("../../../../assets/bgs.png")}
 			style={styles.container}
 			>
 			<CustomHeader hasTabs navigation={navigation} />

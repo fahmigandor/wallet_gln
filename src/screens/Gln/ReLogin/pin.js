@@ -13,7 +13,6 @@ export default class Pin extends Component {
 	}
  
 	componentDidMount() {
-		console.warn(this.props.pin);
     	this.pin = this.props.pin;
 		this.setState({isLoading: false});
 	}
