@@ -1,4 +1,4 @@
-package com.cavallowallet;
+package com.greenlinewallet;
 
 import android.app.Application;
 

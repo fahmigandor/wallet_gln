@@ -21,8 +21,8 @@ import { Field, reduxForm } from "redux-form";
 import styles from "./styles";
 // import commonColor from "../../theme/variables/commonColor";
 
-const bg = require("../../../assets/bg.png");
-const logo = require("../../../assets/gnc-3fix.png");
+const bg = require("../../../assets/login.png");
+const logo = require("../../../assets/gnc-2.png");
 
 const required = value => (value ? undefined : "Required");
 const maxLength = max => value =>
@@ -198,6 +198,7 @@ this.state = {
     return (
       <Container style={styles.background}>
         <StatusBar barStyle="light-content" backgroundColor="#2E8B57"  />
+        <Image source={bg} style={styles.background}>
           <Content contentContainerStyle={{ flex: 1 }}>
             <View style={styles.container}>
               <Image source={logo} style={styles.logo} />
@@ -265,6 +266,7 @@ this.state = {
               </View>
             </View>
           </Content>
+          </Image>
       </Container>
     );
   }

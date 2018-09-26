@@ -344,7 +344,7 @@ class Home extends Component {
 				</View>
 			</Modal>
 			<Image
-			source={require("../../../../assets/bg-transparent.png")}
+			source={require("../../../../assets/bgs.png")}
 			style={styles.container}
 			>
 			<CustomHeader hasTabs navigation={navigation} />
@@ -356,7 +356,7 @@ class Home extends Component {
 						+ Create Wallet
 					</Text>
 				</Button>
-        		<Grid style={{ backgroundColor:"#fff", margin:5}}> 
+        		<Grid style={{ backgroundColor:"transparent", margin:5}}> 
 					<Row style={styles.row}>
 						<Col style={{width: Dimensions.get("window").width / 6}}>
 							<Text style={styles.textRow} >Label</Text>
@@ -373,7 +373,7 @@ class Home extends Component {
 					</Row>
 					{this.state.listWallet.map((item, index) => {
 						return (
-							<Row style={{margin:10}}>
+							<Row style={{margin:10, borderBottomColor:"#ffffff"}}>
 								<Col style={{width: Dimensions.get("window").width / 6}}>
 									<Text style={styles.textRow} >{item.label}</Text>
 								</Col>

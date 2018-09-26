@@ -53,6 +53,7 @@ class History extends Component {
 		.then((responseJson) => {
 			try{
 				var obj = JSON.parse(responseJson);
+				console.warn(JSON.stringify(responseJson));
 				if(typeof obj != "undefined"){
 					if(typeof obj.success != "undefined" && obj.success == false){
 						alert("Invalid Data.a");
@@ -102,7 +103,7 @@ class History extends Component {
         return (
 		<Container>
 			<Image
-			source={require("../../../../assets/bg-transparent.png")}
+			source={require("../../../../assets/bgs.png")}
 			style={styles.container}
 			>
 			<CustomHeader hasTabs navigation={navigation} />
