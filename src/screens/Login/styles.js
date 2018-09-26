@@ -68,7 +68,7 @@ export default {
   loginBtn: {
     marginTop: 7,
     height: 50,
-    backgroundColor: "#000"
+    backgroundColor: "#2E8B57"
   },
   otherLinksContainer: {
     paddingTop: deviceHeight < 600 ? 5 : Platform.OS === "android" ? 10 : 15,

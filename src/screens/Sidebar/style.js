@@ -29,7 +29,7 @@ export default {
     flex: 1,
     width: null,
     height: null,
-    backgroundColor: "#2E8B57"
+    backgroundColor: "#000"
   },
   drawerContent: {
     paddingTop: Platform.OS === "android" ? 20 : 30

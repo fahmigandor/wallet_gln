@@ -180,11 +180,11 @@ class LoginUlangForm extends Component {
     return (
       <Container style={{backgroundColor:"#2E8B57"}}>
         <Image
-        source={require("../../../assets/bg-transparent.png")}
+        source={require("../../../assets/login.png")}
         style={styles.container1}
         >
           <View >
-            <Header style= {{marginBottom:"40%", backgroundColor: "#000"}}>
+            <Header style= {{marginBottom:"40%", backgroundColor:"transparent"}}>
               <Left>
                 <Button transparent onPress={() =>  this.props.navigation.goBack()}>
                 <Icon active name="arrow-back" />
@@ -228,7 +228,7 @@ class LoginUlangForm extends Component {
               primary
               block
               large
-              style={{backgroundColor: "#000", marginTop:10, marginBottom:10}}
+              style={{backgroundColor: "#2E8B57", marginTop:10, marginBottom:10}}
               onPress={() => this.login()}>
               <Text
                 style={
