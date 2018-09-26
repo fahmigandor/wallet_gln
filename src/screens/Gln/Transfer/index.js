@@ -24,7 +24,10 @@ import Icons from 'react-native-vector-icons/FontAwesome';
 import styles from "./styles";
 import AutoComplete from 'native-base-autocomplete';
 import SelectBox from "./SelectBox";
-import ReLogin from "../ReLogin/pinlock";
+import EnterPin from "../ReLogin/enterPinlock";
+import CreatePin from "../ReLogin/createPinlock";
+import Pin from "../ReLogin/pin";
+import KeyboardView from "../ReLogin/tes";
 
 type Props = {
   navigation: () => void
@@ -42,14 +45,18 @@ class Transfer extends Component {
 			fAmount:"",
 			isLoading : false,
 			counterLogin: 0,
-			boolReLogin: false,
+			boolPin: false,
 			boolFrom: false,
 			boolTo: false
 		}
+		this.pin = "";
 		AsyncStorage.getItem('token', (err, result) => {
 			this.token = result;
 			AsyncStorage.getItem('pass', (err, result) => {
 				this.pass = result;
+			});
+			AsyncStorage.getItem('pin', (err, result) => {
+				this.pin = result;
 			});
 			this.getListWallet();
 			this.setState({token:this.token});
@@ -66,7 +73,6 @@ class Transfer extends Component {
 		.then((responseJson) => {
 			try{
 				var obj = JSON.parse(responseJson);
-				console.warn(JSON.stringify(obj))
 				if(typeof obj != "undefined"){
 					if(typeof obj.success != "undefined" && obj.success == false){
 						alert("Invalid Data.");
@@ -90,11 +96,6 @@ class Transfer extends Component {
 	}
 
 	sendTransfer(){
-		// AsyncStorage.getItem('token', (err, result) => {
-		// 	if(typeof obj != "undefined" && result != null && result != ""){
-		// 		this.props.navigation.navigate("LoginUlang");
-		// 	}
-		// });
     	this.setState({isLoading:true});
 		return fetch('https://wallet.greenline.ai/api/send/'+this.token+'/'+this.state.fFrom, {
 			method: 'POST',
@@ -106,6 +107,7 @@ class Transfer extends Component {
 		})
 		.then((response) => response.text())
 		.then((responseJson) => {
+			console.warn("run transfer");
 			try{
 				var obj = JSON.parse(responseJson);
 				if(typeof obj != "undefined"){
@@ -150,11 +152,6 @@ class Transfer extends Component {
 		    default:
 		    	alert("Nothing any statement");
 		}
-		// if(status){
-  //   		this.setState({boolFrom:!this.state.boolFrom});
-		// }else{
-  //   		this.setState({boolTo:!this.state.boolTo});
-		// }
 	}
 
 	callBackFrom = (ffrom) => {
@@ -171,16 +168,16 @@ class Transfer extends Component {
 		});
 	}
 
-	callBackReLogin = (status = false) => {
+	callBackPin = (status = false) => {
 		if(status){
-			this.setState({boolReLogin:!this.state.boolReLogin, counterLogin:0}, function(){
+			this.setState({boolPin:!this.state.boolPin, counterLogin:0}, function(){
 				this.sendTransfer();
 			});
 		}else{
 			this.setState({counterLogin:(this.state.counterLogin + 1)}, function(){
-				alert("Wrong Password "+this.state.counterLogin+"x.");
+				alert("Wrong Pin "+this.state.counterLogin+"x.");
 				if(this.state.counterLogin == 3){
-					this.setState({boolReLogin:!this.state.boolReLogin, counterLogin:0}, function(){
+					this.setState({boolPin:!this.state.boolPin, counterLogin:0}, function(){
 					    AsyncStorage.setItem('token',"");
 					    AsyncStorage.setItem('data_user',"");
 					    AsyncStorage.setItem('pass',"");
@@ -191,10 +188,15 @@ class Transfer extends Component {
 		}
 	}
 
-	reLogin(){
-		this.setState({
-			boolReLogin:!this.state.boolReLogin
-		});
+	openPin(){
+		if(typeof this.pin != "undefined" && this.pin != null && this.pin != "" && this.pin.length > 0){
+			alert("sip");
+			this.setState({
+				boolPin:!this.state.boolPin
+			});
+		}else{
+			alert("Please Set Your Pin.")
+		}
 	}
 
     render() {
@@ -220,93 +222,66 @@ class Transfer extends Component {
         return (
 		<Container>
 			<Modal animationType = {"slide"} transparent={true} 
-				visible={this.state.boolReLogin}
+				visible={this.state.boolPin}
 				onRequestClose = {()=> { console.log("Modal has been closed.") }}>
 				<View style={{height: Dimensions.get("window").height,}}>
-				{/*<View style={{
-					flex: 1,
-					flexDirection: 'column',
-					justifyContent: 'center',
-					alignItems: 'center'}}>
-					<View style={{
-						width: Dimensions.get("window").width * 9 / 10,
-						height: 300,}}>*/}
-						<Header transparent={true} style={{ backgroundColor:"#001f4d"}}>
-							<Left>
-								<Button transparent onPress={() => this.setState({boolReLogin:!this.state.boolReLogin})}>
-									<Icon active name="arrow-back" />
-								</Button>
-							</Left>
-							<Body>
-								<Text>Input Password</Text>
-							</Body>
-							<Right>
-							</Right>
-						</Header>
-						<ScrollView style={styles.container}>
-							<ReLogin pass={this.pass} callback={this.callBackReLogin} />
-						</ScrollView>
-					{/*</View>*/}
+					<Header transparent={true} style={{ backgroundColor:"#001f4d"}}>
+						<Left>
+							<Button transparent onPress={() => this.setState({boolPin:!this.state.boolPin})}>
+								<Icon active name="arrow-back" />
+							</Button>
+						</Left>
+						<Body>
+							<Text>Enter Pin</Text>
+						</Body>
+						<Right>
+						</Right>
+					</Header>
+					<ScrollView style={styles.container}>
+						<Pin pin={this.pin} callback={this.callBackPin} />
+					</ScrollView>
 				</View>
 			</Modal>
 			<Modal animationType = {"slide"} transparent={true} 
 				visible={this.state.boolFrom}
 				onRequestClose = {()=> { console.log("Modal has been closed.") }}>
 				<View style={{height: Dimensions.get("window").height,}}>
-				{/*<View style={{
-					flex: 1,
-					flexDirection: 'column',
-					justifyContent: 'center',
-					alignItems: 'center'}}>
-					<View style={{
-						width: Dimensions.get("window").width * 9 / 10,
-						height: 300,}}>*/}
-						<Header transparent={true} style={{ backgroundColor:"#001f4d"}}>
-							<Left>
-								<Button transparent onPress={() => this.setState({boolFrom:!this.state.boolFrom})}>
-									<Icon active name="arrow-back" />
-								</Button>
-							</Left>
-							<Body>
-								<Text>From Address</Text>
-							</Body>
-							<Right>
-							</Right>
-						</Header>
-						<ScrollView style={styles.container}>
-							<SelectBox data={this.state.listWallet} callback={this.callBackFrom} />
-						</ScrollView>
-					{/*</View>*/}
+					<Header transparent={true} style={{ backgroundColor:"#001f4d"}}>
+						<Left>
+							<Button transparent onPress={() => this.setState({boolFrom:!this.state.boolFrom})}>
+								<Icon active name="arrow-back" />
+							</Button>
+						</Left>
+						<Body>
+							<Text>From Address</Text>
+						</Body>
+						<Right>
+						</Right>
+					</Header>
+					<ScrollView style={styles.container}>
+						<SelectBox data={this.state.listWallet} callback={this.callBackFrom} />
+					</ScrollView>
 				</View>
 			</Modal>
 			<Modal animationType = {"slide"} transparent={true} 
 				visible={this.state.boolTo}
 				onRequestClose = {()=> { console.log("Modal has been closed.") }}>
 				<View style={{height: Dimensions.get("window").height,}}>
-				{/* <View style={{
-					flex: 1,
-					flexDirection: 'column',
-					justifyContent: 'center',
-					alignItems: 'center'}}>
-					<View style={{
-						width: Dimensions.get("window").width * 9 / 10,
-						height: 300,}}>*/}
-						<Header transparent={true} style={{ backgroundColor:"#001f4d"}}>
-							<Left>
-								<Button transparent onPress={() => this.setState({boolTo:!this.state.boolTo})}>
-									<Icon active name="arrow-back" />
-								</Button>
-							</Left>
-							<Body>
-								<Text>Destination</Text>
-							</Body>
-							<Right>
-							</Right>
-						</Header>
-						<ScrollView style={styles.container}>
-							<SelectBox data={this.state.listWallet} callback={this.callBackTo} />
-						</ScrollView>
-					{/* </View> */}
+					<Header transparent={true} style={{ backgroundColor:"#001f4d"}}>
+						<Left>
+							<Button transparent onPress={() => this.setState({boolTo:!this.state.boolTo})}>
+								<Icon active name="arrow-back" />
+							</Button>
+						</Left>
+						<Body>
+							<Text>Destination</Text>
+						</Body>
+						<Right>
+						</Right>
+					</Header>
+					<ScrollView style={styles.container}>
+						<SelectBox data={this.state.listWallet} callback={this.callBackTo} />
+					</ScrollView>
 				</View>
 			</Modal>
 			<Image
@@ -349,9 +324,9 @@ class Transfer extends Component {
 						/>
 						<Button info rounded block 
 							style={{marginTop: 15, margin:5}}
-							onPress={() => {this.reLogin()}}>
+							onPress={() => {this.openPin()}}>
 							<Text>
-								+ Send
+								Send
 							</Text>
 						</Button>
 					</View>

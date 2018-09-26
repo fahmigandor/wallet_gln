@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Text, StyleSheet, View, ListView, TextInput, ActivityIndicator, Alert } from 'react-native';
 import { Button } from "native-base";
+import PINCode from '@haskkor/react-native-pincode'
 
-export default class PinLock extends Component {
+export default class EnterPinLock extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -10,20 +11,24 @@ export default class PinLock extends Component {
 			email: '',
 			password: '',
 		}
-		this.pass = "";
+		this.pin = "";
 	}
  
 	componentDidMount() {
-    	this.pass = this.props.pass;
+    	this.pin = this.props.pin;
 		this.setState({isLoading: false});
 	}
 
-	callback(){
-		if(this.state.password == this.pass){
+	callback(pin){
+		if(pin == this.pin){
 			this.props.callback(true);
 		}else{
 			this.props.callback(false);
 		}
+	}
+
+	savePin(pin){
+		alert(pin);
 	}
   
 	render() {
@@ -36,20 +41,11 @@ export default class PinLock extends Component {
 		}
 		return (
 			<View style={styles.MainContainer}>
-				<TextInput 
-					style={styles.TextInputStyleClass}
-					onChangeText={(text) => this.setState({password:text})}
-					value={this.state.password}
-					underlineColorAndroid='transparent'
-					placeholder="Password"
+				<PINCode 
+					status={'enter'}
+					passwordLength={4}
+					handleResultEnterPin={(pin) => this.callback(pin)}
 				/>
-				<Button info rounded block 
-					style={{marginTop: 15, margin:5}}
-					onPress={() => {this.callback()}}>
-					<Text>
-						Send
-					</Text>
-				</Button>
 			</View>
 		);
 	}

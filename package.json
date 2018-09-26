@@ -61,6 +61,7 @@
     "react-native-htmlview": "^0.12.1",
     "react-native-json-tree": "^1.2.0",
     "react-native-modalbox": "1.4.2",
+    "react-native-pin-view": "^0.1.1",
     "react-native-popup-dialog": "^0.10.46",
     "react-native-qrcode-svg": "^5.0.6",
     "react-native-responsive-grid": "^0.40.6",
