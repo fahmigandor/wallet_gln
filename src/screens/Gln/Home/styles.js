@@ -18,10 +18,10 @@ export default {
     borderColor: "transparent"
   },
   row: {
-    margin:5, paddingBottom:5, borderBottomColor:"#000", borderBottomWidth:1
+    margin:5, paddingBottom:5, borderBottomColor:"#fff", borderBottomWidth:1
   },
   textRow: {
-    fontSize:11, marginLeft:10, color: "#000"
+    fontSize:11, marginLeft:10, color: "#fff"
   },
   buttonCol: {
     marginBottom:3, backgroundColor: "#2E8B57", height: "40%", width: "100%"

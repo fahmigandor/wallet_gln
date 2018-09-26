@@ -32,37 +32,37 @@ class History extends Component {
 	constructor(props: Props) {
 		super(props);
 		this.state = {
-			listHistory : [],
-			lLabel:"",
-			lAddress:"",
-			lPrivate:"",
-			lBalance:"",
-			token: "",
-			boolDetail : false
+			listHistory : []
 		}
+		this.token = "";
 		AsyncStorage.getItem('token', (err, result) => {
-			token = result;
-			this.setState({token:token});
-			this.getListTransaction(token);
+			if(typeof result != "undefined" && result != "" && result != null){
+				this.token = result;
+				this.getListHistory();
+			}
 		});
 	}
 
-	getListTransaction(token, address= ""){
+	getListHistory(){
     	this.setState({isLoading:true});
-		return fetch('https://wallet.greenline.ai/api/history/'+token, {
-			method: 'POST',
-			headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-			body: JSON.stringify({ 'address': address })
+		return fetch('https://wallet.greenline.ai/api/history/'+this.token, {
+			method: 'GET',
+			headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
 		})
 		.then((response) => response.text())
 		.then((responseJson) => {
 			try{
 				var obj = JSON.parse(responseJson);
+				console.warn(JSON.stringify(responseJson));
 				if(typeof obj != "undefined"){
 					if(typeof obj.success != "undefined" && obj.success == false){
-						alert("Invalid Data.");
+						alert("Invalid Data.a");
+						this.setState({isLoading:false});
+					}else if(typeof obj.message != "undefined"){
+						alert(obj.message);
 						this.setState({isLoading:false});
 					}else{
+						alert("Transfer Successfully.");
 						this.setState({
 							listHistory:obj.data, 
 							isLoading:false
@@ -80,16 +80,6 @@ class History extends Component {
 		});
 	}
 
-	openDetail(item){
-		this.getBallance(item.address);
-		this.setState({
-			lLabel:item.label,
-			lAddress:item.address,
-			lPrivate:item.private,
-			boolDetail:!this.state.boolDetail
-		});
-	}
-
     render() {
 		if (this.state.isLoading) {
 			return (
@@ -104,7 +94,7 @@ class History extends Component {
 							alignItems: 'center',
 							justifyContent: 'center',
 							padding: 8}}   size="large"
-							color="#aa00aa"/>
+							color="#fff"/>
 					</View>
 				</View>
 			);
@@ -112,131 +102,37 @@ class History extends Component {
     	const navigation = this.props.navigation;
         return (
 		<Container>
-			<Modal animationType = {"slide"} transparent = {true}
-				visible = {this.state.boolDetail}
-				onRequestClose = {()=> { console.log("Modal has been closed.") }}>
-				<View style={{
-					flex: 1,
-					flexDirection: 'column',
-					justifyContent: 'center',
-					alignItems: 'center'}}>
-				    <View style={{
-						width: Dimensions.get("window").width * 9 / 10,
-						height: 300,}}>
-						<Header transparent={true} style={{ backgroundColor:"#001f4d"}}>
-							<Left>
-								<Button transparent onPress={() => this.setState({boolDetail:!this.state.boolDetail})}>
-									<Icon active name="arrow-back" />
-								</Button>
-							</Left>
-							<Body>
-								<Text>Detail</Text>
-							</Body>
-							<Right>
-							</Right>
-						</Header>
-						<ScrollView style={styles.container}>
-			        		<List style={{ backgroundColor:"#002966"}}>
-								<ListItem>
-									<Row>
-										<Col style={{width: Dimensions.get("window").width / 5}}>
-											<Text>Label :</Text>
-										</Col>
-										<Col>
-											<Text>{this.state.lLabel}</Text>
-										</Col>
-									</Row>
-	        					</ListItem>
-								<ListItem>
-									<Row>
-										<Col style={{width: Dimensions.get("window").width / 5}}>
-											<Text>Address :</Text>
-										</Col>
-										<Col>
-											<Text>{this.state.lAddress}</Text>
-										</Col>
-									</Row>
-	        					</ListItem>
-								<ListItem>
-									<Row>
-										<Col style={{width: Dimensions.get("window").width / 5}}>
-											<Text>Ballance :</Text>
-										</Col>
-										<Col>
-											<Text>{this.state.lBalance}</Text>
-										</Col>
-									</Row>
-	        					</ListItem>
-								<ListItem>
-									<Row>
-										<Col style={{width: Dimensions.get("window").width / 5}}>
-											<Text>Private :</Text>
-										</Col>
-										<Col>
-											<Text>{this.state.lPrivate}</Text>
-										</Col>
-									</Row>
-	        					</ListItem>
-							</List>
-						</ScrollView>
-					</View>
-				</View>
-			</Modal>
 			<Image
-			source={require("../../../../assets/bg-transparent.png")}
+			source={require("../../../../assets/bgs.png")}
 			style={styles.container}
 			>
 			<CustomHeader hasTabs navigation={navigation} />
 			<Content>
 				<View>
 			    <ScrollView horizontal={false}>
-				<Button small info block rounded style={{marginBottom: 10, margin:5}}>
-					<Text style={{fontSize:11}}>
-						+ Create Wallet
-					</Text>
-				</Button>
-        		<Grid style={{ backgroundColor:"#000022", margin:5}}> 
+        		<Grid style={{ backgroundColor:"transparent", margin:5}}> 
 					<Row style={{margin:5, paddingBottom:5, borderBottomColor:"#ffffff", borderBottomWidth:1}}>
 						<Col>
-							<Text style={{fontSize:11, marginLeft:10}} >Transaction</Text>
+							<Text style={{fontSize:11, marginLeft:10}} >Date</Text>
 						</Col>
 						<Col>
-							<Text style={{fontSize:11, marginLeft:10}} >address</Text>
+							<Text style={{fontSize:11, marginLeft:10}} >To</Text>
 						</Col>
 						<Col>
 							<Text style={{fontSize:11, marginLeft:10}} >amount</Text>
-						</Col>
-						<Col>
-							<Text style={{fontSize:11, marginLeft:10}} >Action</Text>
 						</Col>
 					</Row>
 					{this.state.listHistory.map((item, index) => {
 						return (
 							<Row style={{margin:10}}>
 								<Col>
-									<Text style={{fontSize:11, marginLeft:10}} >{item.kode}</Text>
+									<Text style={{fontSize:11, marginLeft:10}} >{item.created_at}</Text>
 								</Col>
 								<Col>
-									<Text style={{fontSize:11, marginLeft:10}} >{item.from}</Text>
-									<Text style={{fontSize:11, marginLeft:10}} >{item.destination}</Text>
+									<Text style={{fontSize:11, marginLeft:10}} >{item.to_wallet}</Text>
 								</Col>
 								<Col>
-									<Text style={{fontSize:11, marginLeft:10}} >{item.amount} GLN</Text>
-								</Col>
-								<Col>
-									<Button small success style={{marginBottom:5}}
-										onPress={() => {this.openDetail(item);}}>
-										<Text style={{fontSize:11}}>
-											<Icons name="eye" size={11} />
-											{" "}Detail
-										</Text>
-									</Button>
-									<Button small success>
-										<Text style={{fontSize:11}}>
-											<Icon style={{fontSize:11}} type="FontAwesome" name="swap" />
-											{" "}Send
-										</Text>
-									</Button>
+									<Text style={{fontSize:11, marginLeft:10}} >{item.amount}</Text>
 								</Col>
 							</Row>
 						) 
