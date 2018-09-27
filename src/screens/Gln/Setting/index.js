@@ -184,7 +184,7 @@ class Setting extends Component {
 					<View style={{margin: Dimensions.get("window").width * 1 / 10}}>
 					<View style={styles.form}>
 						<Button info rounded block 
-							style={{marginTop: 15, margin:5}}
+							style={{marginTop: 15, margin:5,backgroundColor: "#2E8B57"}}
 							onPress={() => {this.setPin()}}>
 							<Text>
 								Set Pin

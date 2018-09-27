@@ -44,11 +44,6 @@ const datas = [
     icon: "shuffle"
   },
   {
-    name: "Api Information",
-    route: "Create",
-    icon: "paper"
-  },
-  {
     name: "Setting",
     route: "Setting",
     icon: "settings"
