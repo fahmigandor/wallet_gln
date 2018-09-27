@@ -132,7 +132,7 @@ class Create extends Component {
 				<View style={{marginTop: Dimensions.get("window").height * 0 / 10}}>
 					<View style={{margin: Dimensions.get("window").width * 1 / 10}}>
 					<View style={styles.form}>
-						<Item small info block rounded style={styles.inputGrp}>
+						<Item style={styles.inputGrp}>
 							<Icons name="paperclip" size={20}
 								style={{ color: "#fff", margin:5 }}
 							/>

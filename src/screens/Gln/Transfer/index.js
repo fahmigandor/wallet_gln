@@ -74,7 +74,7 @@ class Transfer extends Component {
 				var obj = JSON.parse(responseJson);
 				if(typeof obj != "undefined"){
 					if(typeof obj.success != "undefined" && obj.success == false){
-						alert("Invalid Data.");
+						alert("Invalid Data");
 						this.setState({isLoading:false});
 					}else{
 						this.setState({
@@ -223,8 +223,9 @@ class Transfer extends Component {
 			<Modal animationType = {"slide"} transparent={true} 
 				visible={this.state.boolPin}
 				onRequestClose = {()=> { console.log("Modal has been closed.") }}>
+				<Image source={require("../../../../assets/bgs.png")} style={styles.container}>
 				<View style={{height: Dimensions.get("window").height,}}>
-					<Header transparent={true} style={{ backgroundColor:"#001f4d"}}>
+					<Header transparent={true} style={{ backgroundColor:"#000"}}>
 						<Left>
 							<Button transparent onPress={() => this.setState({boolPin:!this.state.boolPin})}>
 								<Icon active name="arrow-back" />
@@ -236,10 +237,11 @@ class Transfer extends Component {
 						<Right>
 						</Right>
 					</Header>
-					<ScrollView style={styles.container}>
+					<ScrollView>
 						<Pin pin={this.state.pin} callback={this.callBackPin} />
 					</ScrollView>
 				</View>
+			</Image>
 			</Modal>
 			<Modal animationType = {"slide"} transparent={true} 
 				visible={this.state.boolFrom}

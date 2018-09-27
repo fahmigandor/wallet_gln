@@ -24,7 +24,7 @@ export default {
     backgroundColor: "rgba(255,255,255,0.3)",
     marginBottom: 8,
     borderWidth: 0,
-    borderColor: "transparent",
+    borderColor: "#fff",
     textAlign: 'center'
   },
   picker: {

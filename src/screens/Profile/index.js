@@ -23,8 +23,6 @@ import { Grid, Col, Row } from "react-native-easy-grid";
 const img3 = require("../../../assets/bnyas.png");
 import CustomHeader from "../../components/CustomHeader";
 import Head from "../head/head.js";
-import History from "./History.js";
-import HistoryBtc from "./HistoryBtc.js";
 const logo = require("../../../assets/cava.png");
 // import LoginUlang from "./LoginUlang.js";
 // import APIHandler from "./APIHandler.js";

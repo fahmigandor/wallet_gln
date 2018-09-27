@@ -22,14 +22,9 @@ import Calendar from "./screens/Calendar/";
 import Timeline from "./screens/Timeline";
 import Feedback from "./screens/Feedback/";
 import Profile from "./screens/Profile/";
-import Icoprev from "./screens/Profile/IcoPrev.js";
-import TeamWork from "./screens/Profile/TeamWork.js";
-
 import depnwith from "./screens/Profile/depoAndwithdraw.js";
 import Settings from "./screens/Settings";
 import LoginUlang from "./screens/Profile/LoginUlang.js";
-
-import CommingSoon from "./screens/Profile/CommingSoon.js";
 
 
 const Drawer = DrawerNavigator(
@@ -45,13 +40,10 @@ const Drawer = DrawerNavigator(
     Timeline: { screen: Timeline },
     Feedback: { screen: Feedback },
     Profile: { screen: Profile },
-    Icoprev: { screen: Icoprev },
     depnwith: { screen: depnwith },
     Setting: { screen: Setting },
     Settings: { screen: Settings },
-     LoginUlang: { screen: LoginUlang },
-       TeamWork: { screen: TeamWork },
-    CommingSoon: { screen: CommingSoon }
+    LoginUlang: { screen: LoginUlang }
   },
   {
     initialRouteName: "Main",

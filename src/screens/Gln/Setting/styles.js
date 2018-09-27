@@ -38,8 +38,7 @@ export default {
   container: {
     flex: 1,
     width: null,
-    height: null,
-    backgroundColor: primary
+    height: null
   },
    background: {
     flex: 1,
@@ -65,6 +64,9 @@ export default {
     opacity: 0.8,
     fontWeight: "bold",
     color: "#FFF"
+  },
+  card: {
+    height: "100%", width: "90%", alignSelf: "center", marginTop: "10%"
   },
   logo: {
     flex: 1,

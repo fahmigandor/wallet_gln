@@ -18,7 +18,8 @@ import {
 	List,
 	ListItem,
 	Toast,
-	Picker
+	Picker,
+	Card, CardItem
 } from "native-base";
 import Icons from 'react-native-vector-icons/FontAwesome';
 import styles from "./styles";
@@ -135,8 +136,12 @@ class Setting extends Component {
 			<Modal animationType = {"slide"} transparent={true} 
 				visible={this.state.boolPin}
 				onRequestClose = {()=> { console.log("Modal has been closed.") }}>
+				<Image
+					source={require("../../../../assets/bgs.png")}
+					style={styles.container}
+					>
 				<View style={{height: Dimensions.get("window").height,}}>
-					<Header transparent={true} style={{ backgroundColor:"#001f4d"}}>
+					<Header transparent={true} style={{ backgroundColor:"#000"}}>
 						<Left>
 							<Button transparent onPress={() => this.setState({boolPin:!this.state.boolPin})}>
 								<Icon active name="arrow-back" />
@@ -152,12 +157,17 @@ class Setting extends Component {
 						<Pin pin={this.state.pin} callback={this.callbackPin} />
 					</ScrollView>
 				</View>
+			</Image>
 			</Modal>
 			<Modal animationType = {"slide"} transparent={true} 
 				visible={this.state.boolCreatePin}
 				onRequestClose = {()=> { console.log("Modal has been closed.") }}>
+				<Image
+					source={require("../../../../assets/bgs.png")}
+					style={styles.container}
+					>
 				<View style={{height: Dimensions.get("window").height,}}>
-					<Header transparent={true} style={{ backgroundColor:"#001f4d"}}>
+					<Header transparent={true} style={{ backgroundColor:"#000"}}>
 						<Left>
 							<Button transparent onPress={() => this.setState({boolCreatePin:!this.state.boolCreatePin})}>
 								<Icon active name="arrow-back" />
@@ -173,6 +183,7 @@ class Setting extends Component {
 						<KeyboardView callback={this.callbackCreatePin} />
 					</ScrollView>
 				</View>
+			</Image>
 			</Modal>
 			<Image
 			source={require("../../../../assets/bgs.png")}
@@ -180,14 +191,28 @@ class Setting extends Component {
 			>
 			<CustomHeader hasTabs navigation={navigation} />
 			<Content>
-				<View style={{marginTop: Dimensions.get("window").height * 0 / 10}}>
+				<Card style={styles.card}>
+		            <CardItem header>
+		              <Text style={{color: "#000", alignItems: "center"}}>How to Setting Your Pin Code</Text>
+		            </CardItem>
+		            <CardItem>
+		              <Body>
+		                <Text style={{color: "#000"}}>Please reset your password for your transaction security.</Text>
+						<Text style={{color: "#000"}}>- Choose setting menu to reset pin . </Text>
+						<Text style={{color: "#000"}}>- You need to input your old password and input new password 2 times to confirm your new password.</Text>
+		              </Body>
+		            </CardItem>
+		            <CardItem footer>
+		            </CardItem>
+         		</Card>
+         		<View style={{marginTop: Dimensions.get("window").height * 0 / 10}}>
 					<View style={{margin: Dimensions.get("window").width * 1 / 10}}>
 					<View style={styles.form}>
 						<Button info rounded block 
-							style={{marginTop: 15, margin:5,backgroundColor: "#2E8B57"}}
+							style={{backgroundColor: "#2E8B57", alignSelf: "center", width: "100%"}}
 							onPress={() => {this.setPin()}}>
 							<Text>
-								Set Pin
+								Setting Pin
 							</Text>
 						</Button>
 					</View>
