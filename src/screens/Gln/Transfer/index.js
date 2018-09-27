@@ -44,18 +44,18 @@ class Transfer extends Component {
 			fAmount:"",
 			isLoading : false,
 			counterLogin: 0,
+			pin: [],
 			boolPin: false,
 			boolFrom: false,
 			boolTo: false
 		}
-		this.pin = "";
 		AsyncStorage.getItem('token', (err, result) => {
 			this.token = result;
 			AsyncStorage.getItem('pass', (err, result) => {
 				this.pass = result;
 			});
 			AsyncStorage.getItem('pin', (err, result) => {
-				this.pin = result;
+				this.setState({pin : JSON.parse(result)});
 			});
 			this.getListWallet();
 			this.setState({token:this.token});
@@ -188,7 +188,8 @@ class Transfer extends Component {
 	}
 
 	openPin(){
-		if(typeof this.pin != "undefined" && this.pin != null && this.pin != "" && this.pin.length > 0){
+		// console.warn(this.state.pin);return;
+		if(typeof this.state.pin != "undefined" && this.state.pin != null && this.state.pin != "" && this.state.pin.length > 0){
 			alert("sip");
 			this.setState({
 				boolPin:!this.state.boolPin
@@ -237,7 +238,7 @@ class Transfer extends Component {
 						</Right>
 					</Header>
 					<ScrollView style={styles.container}>
-						<Pin pin={this.pin} callback={this.callBackPin} />
+						<Pin pin={this.state.pin} callback={this.callBackPin} />
 					</ScrollView>
 				</View>
 			</Modal>
