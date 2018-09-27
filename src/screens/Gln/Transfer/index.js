@@ -190,7 +190,6 @@ class Transfer extends Component {
 	openPin(){
 		// console.warn(this.state.pin);return;
 		if(typeof this.state.pin != "undefined" && this.state.pin != null && this.state.pin != "" && this.state.pin.length > 0){
-			alert("sip");
 			this.setState({
 				boolPin:!this.state.boolPin
 			});
