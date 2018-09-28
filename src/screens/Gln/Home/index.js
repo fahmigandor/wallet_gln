@@ -405,14 +405,11 @@ class Home extends Component {
 				</Button>
         		<Grid style={{ backgroundColor:"transparent", margin:5}}> 
 					<Row style={styles.row}>
-						<Col style={{width: Dimensions.get("window").width / 6}}>
+						<Col style={{width: Dimensions.get("window").width * 2 /10}}>
 							<Text style={styles.textRow} >Label</Text>
 						</Col>
-						<Col style={{width: Dimensions.get("window").width * 3.3 / 10}}>
+						<Col style={{width: Dimensions.get("window").width * 5 / 10}}>
 							<Text style={styles.textRow} >Address</Text>
-						</Col>
-						<Col>
-							<Text style={styles.textRow} >Ballance</Text>
 						</Col>
 						<Col>
 							<Text style={styles.textRow} >Action</Text>
@@ -421,14 +418,11 @@ class Home extends Component {
 					{this.state.listWallet.map((item, index) => {
 						return (
 							<Row style={{margin:10, borderBottomColor:"#ffffff"}} key={item.id.toString()} >
-								<Col style={{width: Dimensions.get("window").width / 6}}>
+								<Col style={{width: Dimensions.get("window").width * 2 /10}}>
 									<Text style={styles.textRow} >{item.label}</Text>
 								</Col>
-								<Col style={{width: Dimensions.get("window").width * 3.3 / 10}}>
+								<Col style={{width: Dimensions.get("window").width * 5 / 10}}>
 									<Text style={styles.textRow} >{item.address}</Text>
-								</Col>
-								<Col>
-									<Text style={styles.textRow} >Gln: 100000</Text>
 								</Col>
 								<Col>
 									<Button style={styles.buttonCol}
