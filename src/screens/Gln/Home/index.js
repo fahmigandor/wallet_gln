@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Image, ActivityIndicator, TouchableOpacity, ListView, Platform, AsyncStorage, Modal, ScrollView, Dimensions } from "react-native";
+import { Image, ActivityIndicator, TouchableOpacity, ListView, Platform, AsyncStorage, Modal, ScrollView, Dimensions, TextInput } from "react-native";
 import { Grid, Col, Row } from "react-native-easy-grid";
 import CustomHeader from "../../../components/CustomHeader";
 import {
@@ -21,6 +21,7 @@ import {
 } from "native-base";
 import Icons from 'react-native-vector-icons/FontAwesome';
 import styles from "./styles";
+import SelectBox from "../Transfer/SelectBox";
 
 type Props = {
   navigation: () => void
@@ -42,18 +43,18 @@ class Home extends Component {
 			fAmount:0,
 			token: "",
 			boolDetail : false,
-			boolTransfer : false
+			boolTransfer : false,
+			boolTo: false
 		}
 		AsyncStorage.getItem('token', (err, result) => {
-			token = result;
-			this.setState({token:token});
-			this.getListWallet(token);
+			this.setState({token:result});
+			this.getListWallet();
 		});
 	}
 
-	getListWallet(token){
+	getListWallet(){
     	this.setState({isLoading:true});
-		return fetch('https://wallet.greenline.ai/api/list/address/'+token, {
+		return fetch('https://wallet.greenline.ai/api/list/address/'+this.state.token, {
 			method: 'GET',
 			headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }
 		})
@@ -139,8 +140,11 @@ class Home extends Component {
 				var obj = JSON.parse(responseJson);
 				if(typeof obj != "undefined"){
 					if(typeof obj.success != "undefined" && obj.success == false){
-						alert("Invalid Data.");
-						this.setState({isLoading:false});
+						alert("Invalid data or your balance is not sufficient.");
+						this.setState({
+							isLoading:false,
+							boolTransfer:!this.state.boolTransfer
+						});
 					}else{
 						this.setState({
 							fFrom:"",
@@ -169,6 +173,17 @@ class Home extends Component {
 			boolTransfer:!this.state.boolTransfer
 		});
 	}
+	
+	openModal(){
+		this.setState({boolTo:!this.state.boolTo});
+	}
+
+	callBackTo = (fdestination) => {
+		this.setState({
+			fDestination:fdestination,
+			boolTo:!this.state.boolTo
+		});
+	}
 
     render() {
 		if (this.state.isLoading) {
@@ -192,6 +207,32 @@ class Home extends Component {
     	const navigation = this.props.navigation;
         return (
 		<Container>
+			<Modal animationType = {"slide"} transparent={true} 
+				visible={this.state.boolTo}
+				onRequestClose = {()=> { console.log("Modal has been closed.") }}>
+				<Image
+					source={require("../../../../assets/bgs.png")}
+					style={styles.container}
+					>
+				<View style={{height: Dimensions.get("window").height,}}>
+					<Header transparent={true} style={{ backgroundColor:"#000"}}>
+						<Left>
+							<Button transparent onPress={() => this.setState({boolTo:!this.state.boolTo})}>
+								<Icon active name="arrow-back" />
+							</Button>
+						</Left>
+						<Body>
+							<Text>Destination</Text>
+						</Body>
+						<Right>
+						</Right>
+					</Header>
+					<ScrollView >
+						<SelectBox data={this.state.listWallet} callback={this.callBackTo} />
+					</ScrollView>
+				</View>
+				</Image>
+			</Modal>
 			<Modal animationType = {"slide"} transparent = {true}
 				visible = {this.state.boolDetail}
 				onRequestClose = {()=> { console.log("Modal has been closed.") }}>
@@ -288,34 +329,40 @@ class Home extends Component {
 						<ScrollView style={{backgroundColor:"#000"}}>
 							<View style={{margin: 15}}>
 							<View style={styles.form}>
-								<Item rounded style={styles.inputGrp}>
-									<Icons name="paperclip" size={20}
-										style={{ color: "#fff", margin:5 }}
-									/>
-									<Input
-										placeholderTextColor="#FFF"
-										TextColor="#FFF"
-										style={styles.input}
-										placeholder="From"
-										secureTextEntry={false}
-										onChangeText={(from) => this.setState({fFrom: from})}
-										value={this.state.fFrom}
-									/>
-								</Item>
-								<Item rounded style={styles.inputGrp}>
-									<Icons name="paperclip" size={20}
-										style={{ color: "#fff", margin:5 }}
-									/>
-									<Input
-										placeholderTextColor="#FFF"
-										TextColor="#FFF"
-										style={styles.input}
-										placeholder="Destination"
-										secureTextEntry={false}
-										onChangeText={(destination) => this.setState({fDestination: destination})}
-										value={this.state.fDestination}
-									/>
-								</Item>
+								<TouchableOpacity>
+									<Item rounded style={styles.inputGrp}>
+										<Icons name="paperclip" size={20}
+											style={{ color: "#fff", margin:5 }}
+										/>
+										<Input
+											placeholderTextColor="#FFF"
+											TextColor="#FFF"
+											style={styles.input}
+											placeholder="From"
+											secureTextEntry={false}
+											onChangeText={(from) => this.setState({fFrom: from})}
+											value={this.state.fFrom}
+										/>
+									</Item>
+								</TouchableOpacity>
+								<TouchableOpacity onPress={() => { this.openModal("to") }}>
+								<View pointerEvents='none'>
+									<Item rounded style={styles.inputGrp}>
+										<Icons name="paperclip" size={20}
+											style={{ color: "#fff", margin:5 }}
+										/>
+										<Input
+											editable={false}
+											placeholderTextColor="#FFF"
+											TextColor="#FFF"
+											style={styles.input}
+											placeholder="Destination"
+											secureTextEntry={false}
+											value={this.state.fDestination}
+										/>
+									</Item>
+								</View>
+								</TouchableOpacity>
 								<Item rounded style={styles.inputGrp}>
 									<Icons name="paperclip" size={20}
 										style={{ color: "#fff", margin:5 }}
