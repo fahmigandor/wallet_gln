@@ -124,7 +124,7 @@ class Home extends Component {
 
 	sendTransfer(){
     	this.setState({isLoading:true});
-    	console.warn(this.state.token, this.state.fFrom, this.state.fDestination, this.state.fAmount);return;
+    	// console.warn(this.state.token, this.state.fFrom, this.state.fDestination, this.state.fAmount);return;
 		return fetch('https://wallet.greenline.ai/api/send/'+this.state.token+'/'+this.state.fFrom, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
@@ -373,7 +373,7 @@ class Home extends Component {
 					</Row>
 					{this.state.listWallet.map((item, index) => {
 						return (
-							<Row style={{margin:10, borderBottomColor:"#ffffff"}}>
+							<Row style={{margin:10, borderBottomColor:"#ffffff"}} key={item.key} >
 								<Col style={{width: Dimensions.get("window").width / 6}}>
 									<Text style={styles.textRow} >{item.label}</Text>
 								</Col>

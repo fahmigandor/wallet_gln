@@ -107,7 +107,6 @@ class LoginUlangForm extends Component {
                 AsyncStorage.setItem('data_user',responseJson);
                 this.props.navigation.navigate("Main");
                 // this.dataUser(obj.result.token);
-              alert("Success");
               }else{
                 alert("Please generate you api key.");
                 this.setState({isLoading:false});

@@ -313,7 +313,7 @@ class Transfer extends Component {
 								textColor="#fff"
     							placeholderTextColor="#fff"
 								underlineColorAndroid='transparent'
-								placeholder="Destination"
+								placeholder="From"
 							/>
 						</View>
 						</TouchableOpacity>
