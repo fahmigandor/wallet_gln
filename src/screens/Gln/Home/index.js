@@ -216,7 +216,7 @@ class Home extends Component {
 							</Right>
 						</Header>
 						<ScrollView style={styles.container}>
-			        		<List style={{ backgroundColor:"#fff"}}>
+			        		<List style={{ backgroundColor:"#000"}}>
 								<ListItem>
 									<Row>
 										<Col style={{width: Dimensions.get("window").width / 5}}>
@@ -273,7 +273,7 @@ class Home extends Component {
 				    <View style={{
 						width: Dimensions.get("window").width * 9 / 10,
 						height: 350,}}>
-						<Header transparent={true} style={{ backgroundColor:"#001f4d"}}>
+						<Header transparent={true} style={{ backgroundColor:"#000"}}>
 							<Left>
 								<Button transparent onPress={() => this.setState({boolTransfer:!this.state.boolTransfer})}>
 									<Icon active name="arrow-back" />
@@ -285,7 +285,7 @@ class Home extends Component {
 							<Right>
 							</Right>
 						</Header>
-						<ScrollView style={{backgroundColor:"#fff"}}>
+						<ScrollView style={{backgroundColor:"#000"}}>
 							<View style={{margin: 15}}>
 							<View style={styles.form}>
 								<Item rounded style={styles.inputGrp}>
@@ -331,7 +331,7 @@ class Home extends Component {
 									/>
 								</Item>
 								<Button info rounded block 
-									style={{marginTop: 15, margin:5}}
+									style={{marginTop: 15, margin:5, backgroundColor: "#2E8B57"}}
 									onPress={() => {this.sendTransfer()}}>
 									<Text>
 										Send
@@ -373,7 +373,7 @@ class Home extends Component {
 					</Row>
 					{this.state.listWallet.map((item, index) => {
 						return (
-							<Row style={{margin:10, borderBottomColor:"#ffffff"}} key={item.key} >
+							<Row style={{margin:10, borderBottomColor:"#ffffff"}} key={item.id.toString()} >
 								<Col style={{width: Dimensions.get("window").width / 6}}>
 									<Text style={styles.textRow} >{item.label}</Text>
 								</Col>
