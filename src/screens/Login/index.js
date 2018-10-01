@@ -21,8 +21,8 @@ import { Field, reduxForm } from "redux-form";
 import styles from "./styles";
 // import commonColor from "../../theme/variables/commonColor";
 
-const bg = require("../../../assets/login.png");
-const logo = require("../../../assets/gnc-2.png");
+const bg = require("../../../assets/bg-gln2.jpg");
+const logo = require("../../../assets/gnc-white.png");
 
 const required = value => (value ? undefined : "Required");
 const maxLength = max => value =>
@@ -243,7 +243,7 @@ this.state = {
                   <Text
                     style={
                       Platform.OS === "android"
-                        ? { fontSize: 16, textAlign: "center", top: -5 }
+                        ? { fontSize: 16, textAlign: "center", top: -5, color: "#FFD700" }
                         : { fontSize: 16, fontWeight: "900" }
                     }
                   >
@@ -259,7 +259,7 @@ this.state = {
                       style={{ alignSelf: "flex-end" }}
                       onPress={() => navigation.navigate("ForgotPassword")}
                     >
-                      <Text style={styles.helpBtns}>Forgot Password</Text>
+                     
                     </Button>
                   </Right>
                 </View>
