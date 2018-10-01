@@ -9,20 +9,24 @@ export default {
   input: {
     paddingLeft: 10,
     color: "#000",
-    fontSize: 13
+    fontSize: 12
   },
   inputGrp: {
     flexDirection: "row",
     backgroundColor: "rgba(255,255,255,0.3)",
     marginBottom: 8,
     borderWidth: 0,
-    borderColor: "transparent"
+    borderColor: "#000",
+    color: "#000"
   },
   row: {
     margin:5, paddingBottom:5, borderBottomColor:"#fff", borderBottomWidth:1
   },
   textRow: {
     fontSize:12, marginLeft:10, color: "#fff"
+  },
+  textCol: {
+    fontSize:12, marginLeft:10, color: "#000"
   },
   buttonCol: {
     marginBottom:3, backgroundColor: "#2E8B57", height: "40%", width: "100%"

@@ -242,9 +242,9 @@ class Home extends Component {
 					justifyContent: 'center',
 					alignItems: 'center'}}>
 				    <View style={{
-						width: Dimensions.get("window").width * 9 / 10,
-						height: 350,}}>
-						<Header style={{ backgroundColor:"#000"}}>
+						width: Dimensions.get("window").width * 9.5 / 10,
+						height: 310,}}>
+						<Header style={{ backgroundColor:"#2E8B57"}}>
 							<Left>
 								<Button transparent onPress={() => this.setState({boolDetail:!this.state.boolDetail})}>
 									<Icon active name="arrow-back" />
@@ -257,44 +257,44 @@ class Home extends Component {
 							</Right>
 						</Header>
 						<ScrollView style={styles.container}>
-			        		<List style={{ backgroundColor:"#000"}}>
+			        		<List style={{ backgroundColor:"#fff"}}>
 								<ListItem>
 									<Row>
 										<Col style={{width: Dimensions.get("window").width / 5}}>
-											<Text>Label :</Text>
+											<Text style={styles.textCol}>Label :</Text>
 										</Col>
 										<Col>
-											<Text>{this.state.lLabel}</Text>
+											<Text style={styles.textCol}>{this.state.lLabel}</Text>
 										</Col>
 									</Row>
 	        					</ListItem>
 								<ListItem>
 									<Row>
 										<Col style={{width: Dimensions.get("window").width / 5}}>
-											<Text>Address :</Text>
+											<Text style={styles.textCol}>Address :</Text>
 										</Col>
 										<Col>
-											<Text>{this.state.lAddress}</Text>
+											<Text style={styles.textCol}>{this.state.lAddress}</Text>
 										</Col>
 									</Row>
 	        					</ListItem>
 								<ListItem>
 									<Row>
 										<Col style={{width: Dimensions.get("window").width / 5}}>
-											<Text>Ballance :</Text>
+											<Text style={styles.textCol}>Ballance :</Text>
 										</Col>
 										<Col>
-											<Text>{this.state.lBalance}</Text>
+											<Text style={styles.textCol}>{this.state.lBalance}</Text>
 										</Col>
 									</Row>
 	        					</ListItem>
 								<ListItem>
 									<Row>
 										<Col style={{width: Dimensions.get("window").width / 5}}>
-											<Text>Private :</Text>
+											<Text style={styles.textCol}>Private :</Text>
 										</Col>
 										<Col>
-											<Text>{this.state.lPrivate}</Text>
+											<Text style={styles.textCol}>{this.state.lPrivate}</Text>
 										</Col>
 									</Row>
 	        					</ListItem>
@@ -312,9 +312,9 @@ class Home extends Component {
 					justifyContent: 'center',
 					alignItems: 'center'}}>
 				    <View style={{
-						width: Dimensions.get("window").width * 9 / 10,
+						width: Dimensions.get("window").width * 9.5 / 10,
 						height: 350,}}>
-						<Header transparent={true} style={{ backgroundColor:"#000"}}>
+						<Header transparent={true} style={{ backgroundColor:"#2E8B57"}}>
 							<Left>
 								<Button transparent onPress={() => this.setState({boolTransfer:!this.state.boolTransfer})}>
 									<Icon active name="arrow-back" />
@@ -326,17 +326,17 @@ class Home extends Component {
 							<Right>
 							</Right>
 						</Header>
-						<ScrollView style={{backgroundColor:"#000"}}>
+						<ScrollView style={{backgroundColor:"#fff"}}>
 							<View style={{margin: 15}}>
 							<View style={styles.form}>
 								<TouchableOpacity>
 									<Item rounded style={styles.inputGrp}>
 										<Icons name="paperclip" size={20}
-											style={{ color: "#fff", margin:5 }}
+											style={{ color: "#000", margin:5 }}
 										/>
 										<Input
-											placeholderTextColor="#FFF"
-											TextColor="#FFF"
+											placeholderTextColor="#000"
+											TextColor="#000"
 											style={styles.input}
 											placeholder="From"
 											secureTextEntry={false}
@@ -349,12 +349,12 @@ class Home extends Component {
 								<View pointerEvents='none'>
 									<Item rounded style={styles.inputGrp}>
 										<Icons name="paperclip" size={20}
-											style={{ color: "#fff", margin:5 }}
+											style={{ color: "#000", margin:5 }}
 										/>
 										<Input
 											editable={false}
-											placeholderTextColor="#FFF"
-											TextColor="#FFF"
+											placeholderTextColor="#000"
+											TextColor="#000"
 											style={styles.input}
 											placeholder="Destination"
 											secureTextEntry={false}
@@ -365,11 +365,11 @@ class Home extends Component {
 								</TouchableOpacity>
 								<Item rounded style={styles.inputGrp}>
 									<Icons name="paperclip" size={20}
-										style={{ color: "#fff", margin:5 }}
+										style={{ color: "#000", margin:5 }}
 									/>
 									<Input
-										placeholderTextColor="#FFF"
-										TextColor="#FFF"
+										placeholderTextColor="#000"
+										TextColor="#000"
 										style={styles.input}
 										placeholder="Amount"
 										secureTextEntry={false}
@@ -378,9 +378,9 @@ class Home extends Component {
 									/>
 								</Item>
 								<Button info rounded block 
-									style={{marginTop: 15, margin:5, backgroundColor: "#2E8B57"}}
+									style={{marginTop: 15, margin:5, backgroundColor: "rgba(255,255,255,0.3)"}}
 									onPress={() => {this.sendTransfer()}}>
-									<Text>
+									<Text style={{color: "#2E8B57"}}>
 										Send
 									</Text>
 								</Button>
@@ -391,15 +391,15 @@ class Home extends Component {
 				</View>
 			</Modal>
 			<Image
-			source={require("../../../../assets/bgs.png")}
+			source={require("../../../../assets/sidebar-transparent.png")}
 			style={styles.container}
 			>
 			<CustomHeader hasTabs navigation={navigation} />
 			<Content>
 				<View>
 			    <ScrollView horizontal={false}>
-				<Button small info block rounded style={{marginBottom: 10, margin:5, backgroundColor: "#2E8B57"}} onPress={() => navigation.navigate("Create")}>
-					<Text style={{fontSize:11}}>
+				<Button small info block rounded style={{marginBottom: 10, margin:5, backgroundColor: "rgba(255,255,255,0.3)"}} onPress={() => navigation.navigate("Create")}>
+					<Text style={{fontSize:13, color: "#FFD700"}}>
 						+ Create Wallet
 					</Text>
 				</Button>
