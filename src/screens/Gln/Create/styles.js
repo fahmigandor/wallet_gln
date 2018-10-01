@@ -8,14 +8,18 @@ const primary = require("../../../theme/variables/commonColor").brandPrimary;
 export default {
   input: {
     paddingLeft: 10,
-    color: "#fff"
+    color: "#000"
+  },
+  card: {
+    height: "100%", width: "90%", alignSelf: "center"
   },
   inputGrp: {
     flexDirection: "row",
     backgroundColor: "rgba(255,255,255,0.3)",
     marginBottom: 8,
     borderWidth: 0,
-    borderColor: "transparent"
+    borderColor: "transparent",
+    width: "100%"
   },
   container: {
     flex: 1,

@@ -8,7 +8,8 @@ const primary = require("../../../theme/variables/commonColor").brandPrimary;
 export default {
   input: {
     paddingLeft: 10,
-    color: "#fff"
+    color: "#000",
+    fontSize: 13
   },
   inputGrp: {
     flexDirection: "row",
@@ -21,7 +22,7 @@ export default {
     margin:5, paddingBottom:5, borderBottomColor:"#fff", borderBottomWidth:1
   },
   textRow: {
-    fontSize:11, marginLeft:10, color: "#fff"
+    fontSize:12, marginLeft:10, color: "#fff"
   },
   buttonCol: {
     marginBottom:3, backgroundColor: "#2E8B57", height: "40%", width: "100%"

@@ -220,6 +220,10 @@ class Transfer extends Component {
     	const navigation = this.props.navigation;
         return (
 		<Container>
+		<Image
+			source={require("../../../../assets/sidebar-transparent.png")}
+			style={styles.container}
+			>
 			<Modal animationType = {"slide"} transparent={true} 
 				visible={this.state.boolPin}
 				onRequestClose = {()=> { console.log("Modal has been closed.") }}>
@@ -247,11 +251,11 @@ class Transfer extends Component {
 				visible={this.state.boolFrom}
 				onRequestClose = {()=> { console.log("Modal has been closed.") }}>
 				<Image
-					source={require("../../../../assets/bgs.png")}
+					source={require("../../../../assets/sidebar-transparent.png")}
 					style={styles.container}
 					>
 				<View style={{height: Dimensions.get("window").height,}}>
-					<Header transparent={true} style={{ backgroundColor:"#000"}}>
+					<Header transparent={true} style= {{backgroundColor: "transparent"}}>
 						<Left>
 							<Button transparent onPress={() => this.setState({boolFrom:!this.state.boolFrom})}>
 								<Icon active name="arrow-back" />
@@ -273,11 +277,11 @@ class Transfer extends Component {
 				visible={this.state.boolTo}
 				onRequestClose = {()=> { console.log("Modal has been closed.") }}>
 				<Image
-					source={require("../../../../assets/bgs.png")}
+					source={require("../../../../assets/sidebar-transparent.png")}
 					style={styles.container}
 					>
 				<View style={{height: Dimensions.get("window").height,}}>
-					<Header transparent={true} style={{ backgroundColor:"#000"}}>
+					<Header transparent={true} style={{ backgroundColor:"transparent"}}>
 						<Left>
 							<Button transparent onPress={() => this.setState({boolTo:!this.state.boolTo})}>
 								<Icon active name="arrow-back" />
@@ -289,39 +293,33 @@ class Transfer extends Component {
 						<Right>
 						</Right>
 					</Header>
-					<ScrollView >
+					<ScrollView>
 						<SelectBox data={this.state.listWallet} callback={this.callBackTo} />
 					</ScrollView>
 				</View>
 				</Image>
 			</Modal>
-			<Image
-			source={require("../../../../assets/bgs.png")}
-			style={styles.container}
-			>
 			<CustomHeader hasTabs navigation={navigation} />
 			<Content>
-				<View style={{marginTop: Dimensions.get("window").height * 0 / 10}}>
+				<View style={{marginTop: Dimensions.get("window").height * 1.5 / 10}}>
 					<View style={{margin: Dimensions.get("window").width * 1 / 10}}>
-					<View style={styles.form}>
-						<TouchableOpacity onPress={() => { this.openModal("from") }}>
-						<View pointerEvents='none'>
+					<Item style={styles.inputGrp} rounded>
+						<TouchableOpacity onPress={() => { this.openModal("from") }} style={{width: "100%"}}>
 							<TextInput 
 								editable={false}
-								style={styles.inputGrp}
 								value={this.state.fFrom}
 								textColor="#fff"
     							placeholderTextColor="#fff"
 								underlineColorAndroid='transparent'
 								placeholder="From"
 							/>
-						</View>
 						</TouchableOpacity>
-						<TouchableOpacity onPress={() => { this.openModal("to") }}>
+					</Item>
+					<Item style={styles.inputGrp} rounded>
+						<TouchableOpacity onPress={() => { this.openModal("to") }} style={{width: "100%",justifyContent: 'center'}}>
 						<View pointerEvents='none'>
 							<TextInput 
 								editable={false}
-								style={styles.inputGrp}
 								textColor="#fff"
     							placeholderTextColor="#fff"
 								value={this.state.fDestination}
@@ -330,8 +328,10 @@ class Transfer extends Component {
 							/>
 						</View>
 						</TouchableOpacity>
+					</Item>
+					<Item style={styles.inputGrp} rounded>
 						<TextInput 
-							style={styles.inputGrp}
+							style={{width: "100%"}}
 							textColor="#fff"
     						placeholderTextColor="#fff"
 							onChangeText={(amount) => this.setState({fAmount: amount})}
@@ -339,6 +339,7 @@ class Transfer extends Component {
 							underlineColorAndroid='transparent'
 							placeholder="Amount"
 						/>
+					</Item>
 						<Button info rounded block 
 							style={{marginTop: 15, margin:5, backgroundColor: "#2E8B57"}}
 							onPress={() => {this.openPin()}}>
@@ -348,9 +349,8 @@ class Transfer extends Component {
 						</Button>
 					</View>
 					</View>
-				</View>
 			</Content>
-			</Image>
+		</Image>
 		</Container>
 
         );

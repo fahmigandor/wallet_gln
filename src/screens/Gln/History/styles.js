@@ -10,7 +10,9 @@ export default {
     flex: 1,
     width: null,
     height: null,
-    backgroundColor: "transparent"
+    backgroundColor: "#000"
+  },
+  textCol: {fontSize:12, marginLeft:10, color: "#fff"
   },
    background: {
     flex: 1,

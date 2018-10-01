@@ -102,37 +102,37 @@ class History extends Component {
     	const navigation = this.props.navigation;
         return (
 		<Container>
-			<Image
-			source={require("../../../../assets/bgs.png")}
-			style={styles.container}
-			>
+		<Image
+		source={require("../../../../assets/sidebar-transparent.png")}
+		style={styles.container}
+		>
 			<CustomHeader hasTabs navigation={navigation} />
 			<Content>
 				<View>
 			    <ScrollView horizontal={false}>
-        		<Grid style={{ backgroundColor:"transparent", margin:5}}> 
-					<Row style={{margin:5, paddingBottom:5, borderBottomColor:"#ffffff", borderBottomWidth:1}}>
+        		<Grid style={{margin:5}}> 
+					<Row style={{margin:5, paddingBottom:5, borderBottomColor:"#fff", borderBottomWidth:1}}>
 						<Col>
-							<Text style={{fontSize:11, marginLeft:10}} >Date</Text>
+							<Text style={styles.textCol} >Date</Text>
 						</Col>
 						<Col>
-							<Text style={{fontSize:11, marginLeft:10}} >To</Text>
+							<Text style={styles.textCol} >To</Text>
 						</Col>
 						<Col>
-							<Text style={{fontSize:11, marginLeft:10}} >amount</Text>
+							<Text style={styles.textCol} >amount</Text>
 						</Col>
 					</Row>
 					{this.state.listHistory.map((item, index) => {
 						return (
 							<Row style={{margin:10}}>
 								<Col>
-									<Text style={{fontSize:11, marginLeft:10}} >{item.created_at}</Text>
+									<Text style={styles.textCol} >{item.created_at}</Text>
 								</Col>
 								<Col>
-									<Text style={{fontSize:11, marginLeft:10}} >{item.to_wallet}</Text>
+									<Text style={styles.textCol} >{item.to_wallet}</Text>
 								</Col>
 								<Col>
-									<Text style={{fontSize:11, marginLeft:10}} >{item.amount}</Text>
+									<Text style={styles.textCol} >{item.amount}</Text>
 								</Col>
 							</Row>
 						) 

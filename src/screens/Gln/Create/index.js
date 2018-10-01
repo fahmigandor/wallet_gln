@@ -17,7 +17,8 @@ import {
 	Header,
 	List,
 	ListItem,
-	Toast
+	Toast,
+	Card, CardItem
 } from "native-base";
 import Icons from 'react-native-vector-icons/FontAwesome';
 import styles from "./styles";
@@ -99,7 +100,7 @@ class Create extends Component {
 		}
     	const navigation = this.props.navigation;
         return (
-		<Container style={{backgroundColor:"#000"}}>
+		<Container style={{backgroundColor:"#2E8B57"}}>
 			<Modal animationType = {"slide"} transparent = {true}
 				visible = {this.state.boolDetail}
 				onRequestClose = {()=> { console.log("Modal has been closed.") }}>
@@ -124,22 +125,21 @@ class Create extends Component {
 				</View>
 			</Modal>
 			<Image
-			source={require("../../../../assets/bgs.png")}
+			source={require("../../../../assets/sidebar-transparent.png")}
 			style={styles.container}
 			>
 			<CustomHeader hasTabs navigation={navigation} />
 			<Content style={{marginTop: "40%"}}>
-				<View style={{marginTop: Dimensions.get("window").height * 0 / 10}}>
+	            <View style={{marginTop: Dimensions.get("window").height * 0 / 10}}>
 					<View style={{margin: Dimensions.get("window").width * 1 / 10}}>
 					<View style={styles.form}>
-						<Item style={styles.inputGrp}>
+						<Item style={styles.inputGrp} rounded>
 							<Icons name="paperclip" size={20}
 								style={{ color: "#fff", margin:5 }}
 							/>
 							<Input
-								placeholderTextColor="#FFF"
-								TextColor="#FFF"
-								style={styles.input}
+								placeholderTextColor="#fff"
+								TextColor="#fff"
 								placeholder="Label"
 								secureTextEntry={false}
 								onChangeText={(label) => this.setState({label: label})}
@@ -147,9 +147,9 @@ class Create extends Component {
 							/>
 						</Item>
 						<Button info rounded block 
-							style={{marginTop: 15, margin:5, backgroundColor: "#2E8B57"}}
+							style={{marginTop: 15, margin:5, backgroundColor: "rgba(255,255,255,0.3)"}}
 							onPress={() => {this.createWallet()}}>
-							<Text>
+							<Text style={{color: "#2E8B57"}}>
 								+ Create Wallet
 							</Text>
 						</Button>

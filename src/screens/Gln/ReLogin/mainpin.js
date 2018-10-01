@@ -98,7 +98,7 @@ export default class Tes extends Component {
     }
     return (
       <View style={styles.MainContainer}>
-      <Text>Choose your Pin Again</Text>
+      <Text style={{color: "#fff", alignSelf: "center"}}>Choose your Pin Again</Text>
       <View pointerEvents='none' style={{flexDirection: 'column', 
           borderBottomWidth:0,
           justifyContent: 'center',
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
   rowViewContainer: {
     borderBottomWidth: 1,
     borderColor: '#fff',
-    color:"#fff",
+    color:"#000",
     fontSize: 17,
     padding: 10
   },
@@ -168,8 +168,8 @@ const styles = StyleSheet.create({
     height: 40,
     width: 40,
     borderWidth: 1,
-    borderColor: '#009688',
+    borderColor: '#fff',
     borderRadius: 7 ,
-    backgroundColor : "#FFFFFF"
+    backgroundColor : "rgba(255,255,255,0.3)"
   }
 });

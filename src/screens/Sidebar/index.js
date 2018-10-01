@@ -1,4 +1,4 @@
-// @flow
+3// @flow
 import React, { Component } from "react";
 import { Image, TouchableOpacity,  AsyncStorage,ActivityIndicator, Alert } from "react-native";
 
@@ -29,11 +29,6 @@ const datas = [
     icon: "home"
   },
   {
-    name: "Create Wallet",
-    route: "Create",
-    icon: "list"
-  },
-  {
     name: "History",
     route: "History",
     icon: "bookmarks"
@@ -42,6 +37,11 @@ const datas = [
     name: "Transfer",
     route: "Transfer",
     icon: "shuffle"
+  },
+  {
+    name: "Create Wallet",
+    route: "Create",
+    icon: "list"
   },
   {
     name: "Setting",

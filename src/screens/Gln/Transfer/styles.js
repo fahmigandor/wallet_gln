@@ -25,7 +25,7 @@ export default {
     marginBottom: 8,
     borderWidth: 0,
     borderColor: "#fff",
-    textAlign: 'center'
+    width: "100%"
   },
   picker: {
     paddingLeft: 10,
@@ -40,13 +40,13 @@ export default {
     flex: 1,
     width: null,
     height: null,
-    backgroundColor: primary
+    backgroundColor: "#000"
   },
    background: {
     flex: 1,
     width: null,
     height: deviceHeight,
-    backgroundColor: "#2E8B57"
+    backgroundColor: "#000"
   },
   Content: {
     backgroundColor: primary

@@ -27,7 +27,7 @@ import Head from "../head/head.js";
 
 import styles from "./styles";
 import datas from "./data";
-const logo = require("../../../assets/gnc-2.png");
+const logo = require("../../../assets/greenfix.png");
 
   const email = value =>
   value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
@@ -179,7 +179,7 @@ class LoginUlangForm extends Component {
     return (
       <Container style={{backgroundColor:"#2E8B57"}}>
         <Image
-        source={require("../../../assets/login.png")}
+        source={require("../../../assets/bg-gln2.jpg")}
         style={styles.container1}
         >
           <View >
@@ -227,12 +227,12 @@ class LoginUlangForm extends Component {
               primary
               block
               large
-              style={{backgroundColor: "#2E8B57", marginTop:10, marginBottom:10}}
+              style={{backgroundColor: "rgba(255,255,255,0.3)", marginTop:10, marginBottom:10}}
               onPress={() => this.login()}>
               <Text
                 style={
                 Platform.OS === "android"
-                ? { fontSize: 16, textAlign: "center", top: -5 }
+                ? { fontSize: 16, textAlign: "center", top: -5, color: "#FFD700" }
                 : { fontSize: 16, fontWeight: "900" }
                 } >
                 LOGIN

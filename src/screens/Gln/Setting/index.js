@@ -121,7 +121,7 @@ class Setting extends Component {
 							alignItems: 'center',
 							justifyContent: 'center',
 							padding: 8}}   size="large"
-							color="#aa00aa"/>
+							color="#fff"/>
 					</View>
 				</View>
 			);
@@ -133,41 +133,45 @@ class Setting extends Component {
     	// }
         return (
 		<Container>
+		<Image
+			source={require("../../../../assets/sidebar-transparent.png")}
+			style={styles.container}
+			>
 			<Modal animationType = {"slide"} transparent={true} 
 				visible={this.state.boolPin}
 				onRequestClose = {()=> { console.log("Modal has been closed.") }}>
 				<Image
-					source={require("../../../../assets/bgs.png")}
-					style={styles.container}
-					>
+				source={require("../../../../assets/sidebar-transparent.png")}
+				style={styles.container}
+				>
 				<View style={{height: Dimensions.get("window").height,}}>
-					<Header transparent={true} style={{ backgroundColor:"#000"}}>
+					<Header transparent={true} style={{ backgroundColor:"transparent"}}>
 						<Left>
 							<Button transparent onPress={() => this.setState({boolPin:!this.state.boolPin})}>
 								<Icon active name="arrow-back" />
 							</Button>
 						</Left>
 						<Body>
-							<Text>Enter Pin</Text>
+							<Text>Enter PIN</Text>
 						</Body>
 						<Right>
 						</Right>
 					</Header>
-					<ScrollView style={styles.container}>
+					<ScrollView>
 						<Pin pin={this.state.pin} callback={this.callbackPin} />
 					</ScrollView>
 				</View>
-			</Image>
+				</Image>
 			</Modal>
 			<Modal animationType = {"slide"} transparent={true} 
 				visible={this.state.boolCreatePin}
 				onRequestClose = {()=> { console.log("Modal has been closed.") }}>
 				<Image
-					source={require("../../../../assets/bgs.png")}
-					style={styles.container}
-					>
+				source={require("../../../../assets/sidebar-transparent.png")}
+				style={styles.container}
+				>
 				<View style={{height: Dimensions.get("window").height,}}>
-					<Header transparent={true} style={{ backgroundColor:"#000"}}>
+					<Header transparent={true} style={{ backgroundColor:"transparent"}}>
 						<Left>
 							<Button transparent onPress={() => this.setState({boolCreatePin:!this.state.boolCreatePin})}>
 								<Icon active name="arrow-back" />
@@ -179,18 +183,15 @@ class Setting extends Component {
 						<Right>
 						</Right>
 					</Header>
-					<ScrollView style={styles.container}>
+					<ScrollView>
 						<KeyboardView callback={this.callbackCreatePin} />
 					</ScrollView>
 				</View>
-			</Image>
+				</Image>
 			</Modal>
-			<Image
-			source={require("../../../../assets/bgs.png")}
-			style={styles.container}
-			>
 			<CustomHeader hasTabs navigation={navigation} />
 			<Content>
+			<View style={{marginTop: Dimensions.get("window").height * 1 / 10}}>
 				<Card style={styles.card}>
 		            <CardItem header>
 		              <Text style={{color: "#000", alignItems: "center"}}>How to Setting Your Pin Code</Text>
@@ -218,8 +219,9 @@ class Setting extends Component {
 					</View>
 					</View>
 				</View>
+			</View>
 			</Content>
-			</Image>
+		</Image>
 		</Container>
         );
     }
