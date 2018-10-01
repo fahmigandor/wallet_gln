@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Image, ActivityIndicator, TouchableOpacity, ListView, Platform, AsyncStorage, Modal, ScrollView, Dimensions, TextInput } from "react-native";
+import { Image, ActivityIndicator, TouchableOpacity, ListView, Platform, AsyncStorage, Modal, ScrollView, Dimensions, TextInput, TouchableHighlight } from "react-native";
 import { Grid, Col, Row } from "react-native-easy-grid";
 import CustomHeader from "../../../components/CustomHeader";
 import {
@@ -44,7 +44,10 @@ class Home extends Component {
 			token: "",
 			boolDetail : false,
 			boolTransfer : false,
-			boolTo: false
+			boolTo: false,
+			boolCreate: false,
+			label:"",
+			isLoading : false
 		}
 		AsyncStorage.getItem('token', (err, result) => {
 			this.setState({token:result});
@@ -120,6 +123,48 @@ class Home extends Component {
 			lAddress:item.address,
 			lPrivate:item.private,
 			boolDetail:!this.state.boolDetail
+		});
+	}
+
+	openCreate(){
+		this.setState({
+			boolCreate:!this.state.boolCreate
+		});
+	}
+
+	createWallet(){
+    	this.setState({isLoading:true});
+		return fetch('https://wallet.greenline.ai/api/create/wallet/'+this.state.token, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+			body: JSON.stringify({'label': this.state.label })
+		})
+		.then((response) => response.text())
+		.then((responseJson) => {
+			try{
+				var obj = JSON.parse(responseJson);
+				if(typeof obj != "undefined"){
+					if(typeof obj.success != "undefined" && obj.success == false){
+						alert("Invalid Data.");
+						this.setState({isLoading:false});
+					}else{
+                		this.props.navigation.navigate("Main");
+						this.setState({
+							label:"", 
+							isLoading:false,
+							boolCreate:!this.state.boolCreate
+						});
+						this.getListWallet();
+					}
+				}
+			}catch(err){
+				alert("Invalid Data");
+				this.setState({isLoading:false});
+			}
+		})
+		.catch((error) => {
+			alert("Invalid Data Or Check Your Connection.");
+			this.setState({isLoading:false});
 		});
 	}
 
@@ -211,11 +256,11 @@ class Home extends Component {
 				visible={this.state.boolTo}
 				onRequestClose = {()=> { console.log("Modal has been closed.") }}>
 				<Image
-					source={require("../../../../assets/bgs.png")}
+					source={require("../../../../assets/sidebar-transparent.png")}
 					style={styles.container}
 					>
 				<View style={{height: Dimensions.get("window").height,}}>
-					<Header transparent={true} style={{ backgroundColor:"#000"}}>
+					<Header transparent={true} style={{ backgroundColor:"transparent"}}>
 						<Left>
 							<Button transparent onPress={() => this.setState({boolTo:!this.state.boolTo})}>
 								<Icon active name="arrow-back" />
@@ -232,6 +277,64 @@ class Home extends Component {
 					</ScrollView>
 				</View>
 				</Image>
+			</Modal>
+			<Modal animationType = {"slide"} transparent={true} 
+				visible={this.state.boolCreate}
+				onRequestClose = {()=> { console.log("Modal has been closed.") }}>
+				
+				<View style={{
+					flex: 1,
+					flexDirection: 'column',
+					justifyContent: 'center',
+					alignItems: 'center'}}>
+				    <View style={{
+						width: Dimensions.get("window").width * 9.5 / 10,
+						height: 310,}}>
+						<Header style={{ backgroundColor:"#2E8B57"}}>
+							<Left>
+								<Button transparent onPress={() => this.setState({boolCreate:!this.state.boolCreate})}>
+									<Icon active name="arrow-back" />
+								</Button>
+							</Left>
+						<Body>
+							<Text>Create Wallet</Text>
+						</Body>
+						<Right>
+						</Right>
+					</Header>
+					<ScrollView style={{ backgroundColor:"#DCDCDC"}}>
+		            <View>
+		              	<View style={{marginTop: Dimensions.get("window").height * 0.5 / 10}}>
+							<View style={{margin: Dimensions.get("window").width * 1 / 10}}>
+							<View style={styles.form}>
+								<Item style={styles.inputGrp} rounded>
+									<Icons name="paperclip" size={20}
+										style={{ color: "#000", margin:5 }}
+									/>
+									<Input
+										placeholderTextColor="#000"
+										TextColor="#000"
+										placeholder="Label"
+										secureTextEntry={false}
+										onChangeText={(label) => this.setState({label: label})}
+										value={this.state.label}
+									/>
+								</Item>
+								<Button info rounded block 
+									style={{marginTop: 15, margin:5, backgroundColor: "rgba(255,255,255,0.3)"}}
+									onPress={() => {this.createWallet()}}>
+									<Text style={{color: "#2E8B57"}}>
+										+ Create Wallet
+									</Text>
+								</Button>
+							</View>
+							</View>
+						</View>
+		            </View>
+		            </ScrollView>
+					</View>
+		          </View>
+				
 			</Modal>
 			<Modal animationType = {"slide"} transparent = {true}
 				visible = {this.state.boolDetail}
@@ -257,7 +360,7 @@ class Home extends Component {
 							</Right>
 						</Header>
 						<ScrollView style={styles.container}>
-			        		<List style={{ backgroundColor:"#fff"}}>
+			        		<List style={{ backgroundColor:"#DCDCDC"}}>
 								<ListItem>
 									<Row>
 										<Col style={{width: Dimensions.get("window").width / 5}}>
@@ -326,7 +429,7 @@ class Home extends Component {
 							<Right>
 							</Right>
 						</Header>
-						<ScrollView style={{backgroundColor:"#fff"}}>
+						<ScrollView style={{backgroundColor:"#DCDCDC"}}>
 							<View style={{margin: 15}}>
 							<View style={styles.form}>
 								<TouchableOpacity>
@@ -398,7 +501,7 @@ class Home extends Component {
 			<Content>
 				<View>
 			    <ScrollView horizontal={false}>
-				<Button small info block rounded style={{marginBottom: 10, margin:5, backgroundColor: "rgba(255,255,255,0.3)"}} onPress={() => navigation.navigate("Create")}>
+				<Button small info block rounded style={{marginBottom: 10, margin:5, backgroundColor: "rgba(255,255,255,0.3)"}} onPress={() =>{this.openCreate();}}>
 					<Text style={{fontSize:13, color: "#FFD700"}}>
 						+ Create Wallet
 					</Text>

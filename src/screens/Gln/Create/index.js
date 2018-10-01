@@ -147,9 +147,9 @@ class Create extends Component {
 							/>
 						</Item>
 						<Button info rounded block 
-							style={{marginTop: 15, margin:5, backgroundColor: "rgba(255,255,255,0.3)"}}
+							style={{marginTop: 15, margin:5, backgroundColor: "#2E8B57"}}
 							onPress={() => {this.createWallet()}}>
-							<Text style={{color: "#2E8B57"}}>
+							<Text style={{color: "#fff"}}>
 								+ Create Wallet
 							</Text>
 						</Button>

@@ -39,11 +39,6 @@ const datas = [
     icon: "shuffle"
   },
   {
-    name: "Create Wallet",
-    route: "Create",
-    icon: "list"
-  },
-  {
     name: "Setting",
     route: "Setting",
     icon: "settings"
