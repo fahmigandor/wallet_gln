@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-import { Image, ActivityIndicator, TouchableOpacity, ListView, Platform, AsyncStorage, Modal, ScrollView, Dimensions, TextInput, TouchableHighlight } from "react-native";
+import { Clipboard, Image, ActivityIndicator, TouchableOpacity, ListView, Platform, AsyncStorage, Modal, ScrollView, Dimensions, TextInput, TouchableHighlight } from "react-native";
 import { Grid, Col, Row } from "react-native-easy-grid";
 import CustomHeader from "../../../components/CustomHeader";
 import {
@@ -229,6 +229,11 @@ class Home extends Component {
 			boolTo:!this.state.boolTo
 		});
 	}
+
+	writeToClipboard = async (text) => {
+		await Clipboard.setString(text);
+		alert('Copied to Clipboard!');
+	};
 
     render() {
 		if (this.state.isLoading) {
@@ -511,8 +516,11 @@ class Home extends Component {
 						<Col style={{width: Dimensions.get("window").width * 2 /10}}>
 							<Text style={styles.textRow} >Label</Text>
 						</Col>
-						<Col style={{width: Dimensions.get("window").width * 5 / 10}}>
+						<Col style={{width: Dimensions.get("window").width * 4 / 10}}>
 							<Text style={styles.textRow} >Address</Text>
+						</Col>
+						<Col style={{width: Dimensions.get("window").width * 1 / 10}}>
+							<Text style={styles.textRow} >{" "}</Text>
 						</Col>
 						<Col>
 							<Text style={styles.textRow} >Action</Text>
@@ -524,8 +532,15 @@ class Home extends Component {
 								<Col style={{width: Dimensions.get("window").width * 2 /10}}>
 									<Text style={styles.textRow} >{item.label}</Text>
 								</Col>
-								<Col style={{width: Dimensions.get("window").width * 5 / 10}}>
+								<Col style={{width: Dimensions.get("window").width * 4 / 10}}>
 									<Text style={styles.textRow} >{item.address}</Text>
+								</Col>
+								<Col style={{width: Dimensions.get("window").width * 1 / 10, marginRight:5}}>
+									<TouchableOpacity onPress={() => { this.writeToClipboard(item.address) }}>
+										<Text style={{fontSize:11, alignSelf: "center", height: "40%"}}>
+											<Icons name="copy" size={11} style={{ color: "#fff" }}/>
+										</Text>
+									</TouchableOpacity>
 								</Col>
 								<Col>
 									<Button style={styles.buttonCol}

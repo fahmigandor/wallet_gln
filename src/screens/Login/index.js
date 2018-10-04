@@ -102,7 +102,7 @@ this.state = {
                 this.setState({isLoading:false});
                 return;
               }
-              if(typeof obj.api_key != "undefined"){
+              if(typeof obj.api_key != "undefined" && obj.api_key != null && obj.api_key != ""){
                 AsyncStorage.setItem('token',obj.api_key);
                 AsyncStorage.setItem('pass',this.state.pass);
                 AsyncStorage.setItem('data_user',responseJson);

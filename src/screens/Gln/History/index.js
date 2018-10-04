@@ -56,13 +56,12 @@ class History extends Component {
 				console.warn(JSON.stringify(responseJson));
 				if(typeof obj != "undefined"){
 					if(typeof obj.success != "undefined" && obj.success == false){
-						alert("Invalid Data.a");
+						alert("Invalid Data.");
 						this.setState({isLoading:false});
 					}else if(typeof obj.message != "undefined"){
 						alert(obj.message);
 						this.setState({isLoading:false});
 					}else{
-						alert("Transfer Successfully.");
 						this.setState({
 							listHistory:obj.data, 
 							isLoading:false
