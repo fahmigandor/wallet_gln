@@ -546,7 +546,7 @@ class Home extends Component {
 									<Button style={styles.buttonCol}
 										onPress={() => {this.openDetail(item);}}>
 										<Text style={{fontSize:11, alignSelf: "center"}}>
-											<Icons name="eye" size={11} style={{ color: "#fff" }}/>
+											<Icons name="eye" size={9} style={{ color: "#fff" }}/>
 											{" "}Detail
 										</Text>
 									</Button>
