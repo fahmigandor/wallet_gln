@@ -27,6 +27,14 @@ export default {
     borderColor: "#fff",
     width: "100%"
   },
+  box9: {
+    borderColor: "transparent",
+    width: '90%'
+  },
+  box1: {
+    borderColor: "transparent",
+    width: '10%'
+  },
   picker: {
     paddingLeft: 10,
     flexDirection: "row",

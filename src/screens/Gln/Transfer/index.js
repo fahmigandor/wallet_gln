@@ -27,6 +27,7 @@ import SelectBox from "./SelectBox";
 import EnterPin from "../ReLogin/enterPinlock";
 import CreatePin from "../ReLogin/createPinlock";
 import Pin from "../ReLogin/pin";
+import ReadBarcode from "../Plugin/ReadBarcode";
 
 type Props = {
   navigation: () => void
@@ -47,7 +48,8 @@ class Transfer extends Component {
 			pin: [],
 			boolPin: false,
 			boolFrom: false,
-			boolTo: false
+			boolTo: false,
+			boolBarcode: false
 		}
 		AsyncStorage.getItem('token', (err, result) => {
 			this.token = result;
@@ -145,6 +147,9 @@ class Transfer extends Component {
 		    case "to":
 	    		this.setState({boolTo:!this.state.boolTo});
 	        break;
+		    case "barcode":
+	    		this.setState({boolBarcode:!this.state.boolBarcode});
+	        break;
 		    case "ReLogin":
 	    		this.setState({boolReLogin:!this.state.boolReLogin});
 	        break;
@@ -186,6 +191,13 @@ class Transfer extends Component {
 			});
 		}
 	}
+	
+	callBackBarcode = (text) => {
+		this.setState({
+			fDestination: text,
+			boolBarcode:!this.state.boolBarcode
+		});
+	}
 
 	openPin(){
 		// console.warn(this.state.pin);return;
@@ -224,6 +236,35 @@ class Transfer extends Component {
 			source={require("../../../../assets/sidebar-transparent.png")}
 			style={styles.container}
 			>
+			<Modal animationType = {"slide"} transparent = {true}
+				visible = {this.state.boolBarcode}
+				onRequestClose = {()=> { console.log("Modal has been closed.") }}>
+				<View style={{
+					flex: 1,
+					flexDirection: 'column',
+					justifyContent: 'center',
+					alignItems: 'center'}}>
+				    <View style={{
+						width: Dimensions.get("window").width * 9.5 / 10,
+						height: 350,}}>
+						<Header transparent={true} style={{ backgroundColor:"#2E8B57"}}>
+						<Left>
+							<Button transparent onPress={() => this.setState({boolBarcode:!this.state.boolBarcode})}>
+								<Icon active name="arrow-back" />
+							</Button>
+						</Left>
+						<Body>
+							<Text>Read Barcode</Text>
+						</Body>
+						<Right>
+						</Right>
+					</Header>
+					<ScrollView>
+						<ReadBarcode callback={this.callBackBarcode} />
+					</ScrollView>
+					</View>
+				</View>
+			</Modal>
 			<Modal animationType = {"slide"} transparent={true} 
 				visible={this.state.boolPin}
 				onRequestClose = {()=> { console.log("Modal has been closed.") }}>
@@ -316,18 +357,27 @@ class Transfer extends Component {
 						</TouchableOpacity>
 					</Item>
 					<Item style={styles.inputGrp} rounded>
-						<TouchableOpacity onPress={() => { this.openModal("to") }} style={{width: "100%",justifyContent: 'center'}}>
-						<View pointerEvents='none'>
-							<TextInput 
-								editable={false}
-								textColor="#fff"
-    							placeholderTextColor="#fff"
-								value={this.state.fDestination}
-								underlineColorAndroid='transparent'
-								placeholder="Destination"
-							/>
-						</View>
-						</TouchableOpacity>
+						<Item style={styles.box9}>
+							<TouchableOpacity onPress={() => { this.openModal("to") }} style={{width: "100%",justifyContent: 'center'}}>
+							<View pointerEvents='none'>
+								<TextInput 
+									editable={false}
+									textColor="#fff"
+	    							placeholderTextColor="#fff"
+									value={this.state.fDestination}
+									underlineColorAndroid='transparent'
+									placeholder="Destination"
+								/>
+							</View>
+							</TouchableOpacity>
+						</Item>
+						<Item style={styles.box1}>
+							<TouchableOpacity onPress={() => { this.openModal("barcode") }} style={{width: "100%",justifyContent: 'center'}}>
+								<Icons name="barcode" size={20}
+									style={styles.iconRight}
+								/>
+							</TouchableOpacity>
+						</Item>
 					</Item>
 					<Item style={styles.inputGrp} rounded>
 						<TextInput 

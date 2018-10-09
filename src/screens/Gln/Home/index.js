@@ -22,6 +22,7 @@ import {
 import Icons from 'react-native-vector-icons/FontAwesome';
 import styles from "./styles";
 import SelectBox from "../Transfer/SelectBox";
+import QRCode from 'react-native-qrcode';
 
 type Props = {
   navigation: () => void
@@ -405,6 +406,15 @@ class Home extends Component {
 											<Text style={styles.textCol}>{this.state.lPrivate}</Text>
 										</Col>
 									</Row>
+	        					</ListItem>
+								<ListItem>
+									<View style={{margin:10, flex: 1, alignItems: 'center'}}>
+										<QRCode
+											value={this.state.lAddress}
+											size={200}
+											bgColor='purple'
+											fgColor='white'/>
+									</View>
 	        					</ListItem>
 							</List>
 						</ScrollView>
